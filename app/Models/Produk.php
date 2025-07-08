@@ -10,6 +10,7 @@ class Produk extends Model
     use HasFactory;
 
     protected $table = 'produk';
+    protected $primaryKey = 'produk_id';
 
     protected $fillable = [
         'nama',
@@ -18,62 +19,79 @@ class Produk extends Model
         'harga',
         'gambar',
         'status',
-        'stok',
+        'stok'
     ];
 
     protected $casts = [
         'harga' => 'decimal:2',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
+        'stok' => 'integer'
     ];
 
-    // Konstanta untuk kategori produk
-    const KATEGORI = [
-        'baju_pengantin' => 'Baju Pengantin',
-        'seragam_sekolah' => 'Seragam Sekolah',
-        'baju_kerja' => 'Baju Kerja',
-        'kebaya' => 'Kebaya',
-        'gamis' => 'Gamis',
-        'jas' => 'Jas',
-        'baju_anak' => 'Baju Anak',
-    ];
-
-    // Konstanta untuk status
-    const STATUS = [
-        'aktif' => 'Aktif',
-        'nonaktif' => 'Non-aktif',
-    ];
-
-    // Accessor untuk kategori
-    public function getKategoriLabelAttribute()
+    // Relasi ke tabel foto
+    public function fotos()
     {
-        return self::KATEGORI[$this->kategori] ?? $this->kategori;
+        return $this->hasMany(ProdukFoto::class, 'produk_id', 'produk_id')->orderBy('urutan');
     }
 
-    // Accessor untuk status
-    public function getStatusLabelAttribute()
+    // Relasi untuk foto utama
+    public function fotoPrimary()
     {
-        return self::STATUS[$this->status] ?? $this->status;
+        return $this->hasOne(ProdukFoto::class, 'produk_id', 'produk_id')->where('is_primary', true);
     }
 
-    // Scope untuk filter berdasarkan kategori
-    public function scopeByKategori($query, $kategori)
+    // Accessor untuk mendapatkan URL foto utama
+    public function getFotoUtamaAttribute()
+    {
+        $fotoPrimary = $this->fotoPrimary;
+        if ($fotoPrimary) {
+            return asset('storage/' . $fotoPrimary->path_file);
+        }
+        
+        // Fallback ke gambar field jika ada
+        if ($this->gambar) {
+            return asset('storage/' . $this->gambar);
+        }
+        
+        // Default image jika tidak ada foto
+        return asset('img/no-image.png');
+    }
+
+    // Scope untuk produk aktif
+    public function scopeAktif($query)
+    {
+        return $query->where('status', 'aktif');
+    }
+
+    // Scope untuk produk berdasarkan kategori
+    public function scopeKategori($query, $kategori)
     {
         return $query->where('kategori', $kategori);
     }
 
-    // Scope untuk filter berdasarkan status
-    public function scopeByStatus($query, $status)
+    // Method untuk mendapatkan daftar kategori
+    public static function getKategoriOptions()
     {
-        return $query->where('status', $status);
+        return [
+            'baju_pengantin' => 'Baju Pengantin',
+            'seragam_sekolah' => 'Seragam Sekolah',
+            'baju_kerja' => 'Baju Kerja',
+            'kebaya' => 'Kebaya',
+            'gamis' => 'Gamis',
+            'jas' => 'Jas',
+            'baju_anak' => 'Baju Anak'
+        ];
     }
 
-    // Scope untuk pencarian
-    public function scopeSearch($query, $search)
+    // Method untuk mendapatkan label kategori
+    public function getKategoriLabelAttribute()
     {
-        return $query->where(function ($q) use ($search) {
-            $q->where('nama', 'like', '%' . $search . '%')
-              ->orWhere('deskripsi', 'like', '%' . $search . '%');
-        });
+        $options = self::getKategoriOptions();
+        return $options[$this->kategori] ?? $this->kategori;
+    }
+
+    // Method untuk format harga
+    public function getHargaFormatAttribute()
+    {
+        return 'Rp ' . number_format($this->harga, 0, ',', '.');
     }
 }

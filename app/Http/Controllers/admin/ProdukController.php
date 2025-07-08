@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Produk;
+use App\Models\ProdukFoto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ProdukController extends Controller
@@ -22,27 +23,28 @@ class ProdukController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Produk::query();
-        
-        // Search functionality
-        if ($request->has('search') && $request->search != '') {
-            $search = $request->search;
-            $query->search($search);
+        $query = Produk::with(['fotoPrimary']);
+
+        // Filter pencarian
+        if ($request->filled('search')) {
+            $query->where('nama', 'like', '%' . $request->search . '%')
+                  ->orWhere('deskripsi', 'like', '%' . $request->search . '%');
         }
-        
-        // Filter by kategori
-        if ($request->has('kategori') && $request->kategori != '') {
-            $query->byKategori($request->kategori);
+
+        // Filter kategori
+        if ($request->filled('kategori')) {
+            $query->where('kategori', $request->kategori);
         }
-        
-        // Filter by status
-        if ($request->has('status') && $request->status != '') {
-            $query->byStatus($request->status);
+
+        // Filter status
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
         }
-        
+
         $produk = $query->orderBy('created_at', 'desc')->paginate(10);
-        
-        return view('admin.produk.index', compact('produk'));
+        $kategoriOptions = Produk::getKategoriOptions();
+
+        return view('admin.produk.index', compact('produk', 'kategoriOptions'));
     }
 
     /**
@@ -50,7 +52,8 @@ class ProdukController extends Controller
      */
     public function create()
     {
-        return view('admin.produk.create');
+        $kategoriOptions = Produk::getKategoriOptions();
+        return view('admin.produk.create', compact('kategoriOptions'));
     }
 
     /**
@@ -58,40 +61,32 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'nama' => 'required|string|max:255',
-            'kategori' => 'required|in:baju_pengantin,seragam_sekolah,baju_kerja,kebaya,gamis,jas,baju_anak',
+            'kategori' => 'required|in:' . implode(',', array_keys(Produk::getKategoriOptions())),
             'deskripsi' => 'nullable|string',
             'harga' => 'required|numeric|min:0',
             'stok' => 'required|integer|min:0',
             'status' => 'required|in:aktif,nonaktif',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'fotos.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        if ($validator->fails()) {
-            Alert::error('Error', 'Data tidak valid!');
-            return redirect()->back()->withErrors($validator)->withInput();
+        $produk = Produk::create([
+            'nama' => $request->nama,
+            'kategori' => $request->kategori,
+            'deskripsi' => $request->deskripsi,
+            'harga' => $request->harga,
+            'stok' => $request->stok,
+            'status' => $request->status
+        ]);
+
+        // Upload foto jika ada
+        if ($request->hasFile('fotos')) {
+            $this->uploadFotos($request->file('fotos'), $produk->produk_id);
         }
 
-        try {
-            $data = $request->only(['nama', 'kategori', 'deskripsi', 'harga', 'stok', 'status']);
-            
-            // Handle file upload
-            if ($request->hasFile('gambar')) {
-                $file = $request->file('gambar');
-                $filename = time() . '_' . $file->getClientOriginalName();
-                $path = $file->storeAs('produk', $filename, 'public');
-                $data['gambar'] = $path;
-            }
-
-            Produk::create($data);
-
-            Alert::success('Berhasil', 'Produk berhasil ditambahkan!');
-            return redirect()->route('admin.produk.index');
-        } catch (\Exception $e) {
-            Alert::error('Error', 'Terjadi kesalahan saat menambahkan produk!');
-            return redirect()->back()->withInput();
-        }
+        Alert::success('Berhasil', 'Produk berhasil ditambahkan!');
+        return redirect()->route('admin.produk.index');
     }
 
     /**
@@ -99,6 +94,7 @@ class ProdukController extends Controller
      */
     public function show(Produk $produk)
     {
+        $produk->load(['fotos']);
         return view('admin.produk.show', compact('produk'));
     }
 
@@ -107,7 +103,9 @@ class ProdukController extends Controller
      */
     public function edit(Produk $produk)
     {
-        return view('admin.produk.edit', compact('produk'));
+        $produk->load(['fotos']);
+        $kategoriOptions = Produk::getKategoriOptions();
+        return view('admin.produk.edit', compact('produk', 'kategoriOptions'));
     }
 
     /**
@@ -115,45 +113,32 @@ class ProdukController extends Controller
      */
     public function update(Request $request, Produk $produk)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'nama' => 'required|string|max:255',
-            'kategori' => 'required|in:baju_pengantin,seragam_sekolah,baju_kerja,kebaya,gamis,jas,baju_anak',
+            'kategori' => 'required|in:' . implode(',', array_keys(Produk::getKategoriOptions())),
             'deskripsi' => 'nullable|string',
             'harga' => 'required|numeric|min:0',
             'stok' => 'required|integer|min:0',
             'status' => 'required|in:aktif,nonaktif',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'fotos.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        if ($validator->fails()) {
-            Alert::error('Error', 'Data tidak valid!');
-            return redirect()->back()->withErrors($validator)->withInput();
+        $produk->update([
+            'nama' => $request->nama,
+            'kategori' => $request->kategori,
+            'deskripsi' => $request->deskripsi,
+            'harga' => $request->harga,
+            'stok' => $request->stok,
+            'status' => $request->status
+        ]);
+
+        // Upload foto baru jika ada
+        if ($request->hasFile('fotos')) {
+            $this->uploadFotos($request->file('fotos'), $produk->produk_id);
         }
 
-        try {
-            $data = $request->only(['nama', 'kategori', 'deskripsi', 'harga', 'stok', 'status']);
-            
-            // Handle file upload
-            if ($request->hasFile('gambar')) {
-                // Delete old image if exists
-                if ($produk->gambar && Storage::disk('public')->exists($produk->gambar)) {
-                    Storage::disk('public')->delete($produk->gambar);
-                }
-                
-                $file = $request->file('gambar');
-                $filename = time() . '_' . $file->getClientOriginalName();
-                $path = $file->storeAs('produk', $filename, 'public');
-                $data['gambar'] = $path;
-            }
-
-            $produk->update($data);
-
-            Alert::success('Berhasil', 'Produk berhasil diperbarui!');
-            return redirect()->route('admin.produk.index');
-        } catch (\Exception $e) {
-            Alert::error('Error', 'Terjadi kesalahan saat memperbarui produk!');
-            return redirect()->back()->withInput();
-        }
+        Alert::success('Berhasil', 'Produk berhasil diperbarui!');
+        return redirect()->route('admin.produk.index');
     }
 
     /**
@@ -161,38 +146,72 @@ class ProdukController extends Controller
      */
     public function destroy(Produk $produk)
     {
-        try {
-            // Delete image if exists
-            if ($produk->gambar && Storage::disk('public')->exists($produk->gambar)) {
-                Storage::disk('public')->delete($produk->gambar);
-            }
-            
-            $produk->delete();
-            
-            Alert::success('Berhasil', 'Produk berhasil dihapus!');
-            return redirect()->route('admin.produk.index');
-        } catch (\Exception $e) {
-            Alert::error('Error', 'Terjadi kesalahan saat menghapus produk!');
-            return redirect()->back();
+        // Hapus semua foto terkait
+        foreach ($produk->fotos as $foto) {
+            $foto->delete(); // Akan otomatis menghapus file karena ada boot method
         }
+
+        $produk->delete();
+
+        Alert::success('Berhasil', 'Produk berhasil dihapus!');
+        return redirect()->route('admin.produk.index');
     }
 
     /**
-     * Toggle status of the specified resource.
+     * Toggle status produk
      */
     public function toggleStatus(Produk $produk)
     {
-        try {
-            $produk->status = $produk->status === 'aktif' ? 'nonaktif' : 'aktif';
-            $produk->save();
+        $produk->update([
+            'status' => $produk->status === 'aktif' ? 'nonaktif' : 'aktif'
+        ]);
+
+        $status = $produk->status === 'aktif' ? 'diaktifkan' : 'dinonaktifkan';
+        Alert::success('Berhasil', "Produk berhasil {$status}!");
+        
+        return redirect()->back();
+    }
+
+    /**
+     * Hapus foto produk
+     */
+    public function deleteFoto(ProdukFoto $foto)
+    {
+        $foto->delete();
+        
+        Alert::success('Berhasil', 'Foto berhasil dihapus!');
+        return redirect()->back();
+    }
+
+    /**
+     * Set foto sebagai primary
+     */
+    public function setPrimaryFoto(ProdukFoto $foto)
+    {
+        $foto->setPrimary();
+        
+        Alert::success('Berhasil', 'Foto utama berhasil diubah!');
+        return redirect()->back();
+    }
+
+    /**
+     * Upload multiple fotos
+     */
+    private function uploadFotos($files, $produkId)
+    {
+        $isFirstPhoto = ProdukFoto::where('produk_id', $produkId)->count() === 0;
+        
+        foreach ($files as $index => $file) {
+            $fileName = time() . '_' . $index . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('produk', $fileName, 'public');
             
-            $statusText = $produk->status === 'aktif' ? 'diaktifkan' : 'dinonaktifkan';
-            Alert::success('Berhasil', "Produk berhasil {$statusText}!");
-            
-            return redirect()->back();
-        } catch (\Exception $e) {
-            Alert::error('Error', 'Terjadi kesalahan saat mengubah status produk!');
-            return redirect()->back();
+            ProdukFoto::create([
+                'produk_id' => $produkId,
+                'nama_file' => $fileName,
+                'path_file' => $path,
+                'is_primary' => $isFirstPhoto && $index === 0, // Foto pertama jadi primary
+                'urutan' => $index + 1
+            ]);
         }
     }
 }

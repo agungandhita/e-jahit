@@ -56,8 +56,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     // User Management Routes
     Route::resource('users', UserController::class, ['as' => 'admin']);
     Route::patch('users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('admin.users.toggle-status');
-    
-    // Product Management Routes
+
+    // Produk Management Routes
     Route::resource('produk', ProdukController::class, ['as' => 'admin']);
     Route::patch('produk/{produk}/toggle-status', [ProdukController::class, 'toggleStatus'])->name('admin.produk.toggle-status');
+    Route::delete('produk-foto/{foto}', [ProdukController::class, 'deleteFoto'])->name('admin.produk.delete-foto');
+    Route::patch('produk-foto/{foto}/set-primary', [ProdukController::class, 'setPrimaryFoto'])->name('admin.produk.set-primary-foto');
 });

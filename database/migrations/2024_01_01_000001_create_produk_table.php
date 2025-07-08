@@ -12,17 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('produk', function (Blueprint $table) {
-            $table->id();
+            $table->id('produk_id');
             $table->string('nama');
-            $table->enum('kategori', [
-                'baju_pengantin',
-                'seragam_sekolah', 
-                'baju_kerja',
-                'kebaya',
-                'gamis',
-                'jas',
-                'baju_anak'
-            ]);
+            $table->enum('kategori', ['baju_pengantin', 'seragam_sekolah', 'baju_kerja', 'kebaya', 'gamis', 'jas', 'baju_anak']);
             $table->text('deskripsi')->nullable();
             $table->decimal('harga', 10, 2);
             $table->string('gambar')->nullable();
