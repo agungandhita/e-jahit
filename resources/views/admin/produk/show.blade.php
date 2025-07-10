@@ -105,11 +105,11 @@
                             </div>
                             
                             <div>
-                                <label class="block text-sm font-medium text-gray-500 mb-1">Stok</label>
-                                <p class="text-lg font-semibold {{ $produk->stok <= 5 ? 'text-red-600' : 'text-gray-900' }}">
-                                    {{ $produk->stok }} unit
-                                    @if($produk->stok <= 5)
-                                        <span class="text-sm text-red-500">(Stok Rendah)</span>
+                                <label class="block text-sm font-medium text-gray-500 mb-1">Jumlah Produksi</label>
+                                <p class="text-lg font-semibold {{ $produk->jumlah_produksi <= 5 ? 'text-red-600' : 'text-gray-900' }}">
+                                    {{ $produk->jumlah_produksi }} unit
+                                    @if($produk->jumlah_produksi <= 5)
+                                        <span class="text-sm text-red-500">(Produksi Rendah)</span>
                                     @endif
                                 </p>
                             </div>

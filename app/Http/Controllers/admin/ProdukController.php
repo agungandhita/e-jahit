@@ -66,7 +66,7 @@ class ProdukController extends Controller
             'kategori' => 'required|in:' . implode(',', array_keys(Produk::getKategoriOptions())),
             'deskripsi' => 'nullable|string',
             'harga' => 'required|numeric|min:0',
-            'stok' => 'required|integer|min:0',
+            'jumlah_produksi' => 'required|integer|min:0',
             'status' => 'required|in:aktif,nonaktif',
             'fotos.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
@@ -76,7 +76,7 @@ class ProdukController extends Controller
             'kategori' => $request->kategori,
             'deskripsi' => $request->deskripsi,
             'harga' => $request->harga,
-            'stok' => $request->stok,
+            'jumlah_produksi' => $request->jumlah_produksi,
             'status' => $request->status
         ]);
 
@@ -118,7 +118,7 @@ class ProdukController extends Controller
             'kategori' => 'required|in:' . implode(',', array_keys(Produk::getKategoriOptions())),
             'deskripsi' => 'nullable|string',
             'harga' => 'required|numeric|min:0',
-            'stok' => 'required|integer|min:0',
+            'jumlah_produksi' => 'required|integer|min:0',
             'status' => 'required|in:aktif,nonaktif',
             'fotos.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
@@ -128,7 +128,7 @@ class ProdukController extends Controller
             'kategori' => $request->kategori,
             'deskripsi' => $request->deskripsi,
             'harga' => $request->harga,
-            'stok' => $request->stok,
+            'jumlah_produksi' => $request->jumlah_produksi,
             'status' => $request->status
         ]);
 

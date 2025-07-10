@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\KatalogController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProdukController;
@@ -23,7 +24,12 @@ use App\Http\Controllers\Admin\ProdukController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/tentang-kami', [HomeController::class, 'about'])->name('about');
 Route::get('/layanan', [HomeController::class, 'services'])->name('services');
-Route::get('/galeri', [HomeController::class, 'gallery'])->name('gallery');
+
+// Gallery routes
+Route::get('/galeri', [KatalogController::class, 'index'])->name('gallery.index');
+Route::get('/galeri/{id}', [KatalogController::class, 'show'])->name('gallery.detail');
+Route::get('/galeri/filter/kategori', [KatalogController::class, 'filterByCategory'])->name('gallery.filter');
+
 Route::get('/testimoni', [HomeController::class, 'testimonials'])->name('testimonials');
 Route::get('/kontak', [HomeController::class, 'contact'])->name('contact');
 Route::post('/kontak', [HomeController::class, 'contactSubmit'])->name('contact.submit');

@@ -19,12 +19,12 @@ class Produk extends Model
         'harga',
         'gambar',
         'status',
-        'stok'
+        'jumlah_produksi'
     ];
 
     protected $casts = [
         'harga' => 'decimal:2',
-        'stok' => 'integer'
+        'jumlah_produksi' => 'integer'
     ];
 
     // Relasi ke tabel foto

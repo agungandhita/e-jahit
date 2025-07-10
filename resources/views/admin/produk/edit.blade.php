@@ -78,13 +78,13 @@
                             @enderror
                         </div>
 
-                        <!-- Stok -->
+                        <!-- Jumlah Produksi -->
                         <div>
-                            <label for="stok" class="block text-sm font-medium text-gray-700 mb-2">Stok *</label>
-                            <input type="number" name="stok" id="stok" value="{{ old('stok', $produk->stok) }}" 
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('stok') border-red-500 @enderror" 
+                            <label for="jumlah_produksi" class="block text-sm font-medium text-gray-700 mb-2">Jumlah Produksi *</label>
+                            <input type="number" name="jumlah_produksi" id="jumlah_produksi" value="{{ old('jumlah_produksi', $produk->jumlah_produksi) }}" 
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('jumlah_produksi') border-red-500 @enderror" 
                                    placeholder="0" min="0" required>
-                            @error('stok')
+                            @error('jumlah_produksi')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>

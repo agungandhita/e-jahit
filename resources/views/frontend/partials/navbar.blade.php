@@ -6,14 +6,14 @@
                 aria-label="Brand">
                 <div class="flex items-center">
                     <!-- Logo Usaha Jahit Rumahan -->
-                    <div class="w-12 h-12 mr-3 flex items-center justify-center bg-gradient-to-br from-amber-100 to-amber-200 rounded-full border-2 border-amber-600">
-                        <div class="w-8 h-8 text-amber-700">
+                    <div class="w-10 h-10 mr-2 flex items-center justify-center bg-green-100 rounded border border-green-600">
+                        <div class="w-6 h-6 text-green-700">
                            <img src="{{ asset('img/logo.png') }}" alt="">
                         </div>
                     </div>
                     <div>
-                        <span class="text-amber-700 font-bold text-xl block leading-tight">USAHA JAHIT</span>
-                        <span class="text-amber-600 font-medium text-sm block leading-tight">RUMAHAN</span>
+                        <span class="text-green-700 font-bold text-lg block leading-tight">USAHA JAHIT</span>
+                        <span class="text-green-600 font-medium text-xs block leading-tight">RUMAHAN</span>
                     </div>
                 </div>
             </a>
@@ -44,30 +44,30 @@
             class="hidden hs-collapse overflow-hidden transition-all duration-300 basis-full grow sm:block"
             aria-labelledby="hs-navbar-example-collapse">
             <div class="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5">
-                <a class="font-semibold text-black text-base hover:text-amber-600 focus:outline-none transition-colors"
+                <a class="font-medium text-black text-sm hover:text-green-600 focus:outline-none transition-colors"
                     href="{{ route('home') }}" aria-current="page">Beranda</a>
-                <a class="font-semibold text-black text-base hover:text-amber-600 focus:outline-none transition-colors"
+                <a class="font-medium text-black text-sm hover:text-green-600 focus:outline-none transition-colors"
                     href="{{ route('about') }}">Tentang Kami</a>
-                <a class="font-semibold text-black text-base hover:text-amber-600 focus:outline-none transition-colors"
+                <a class="font-medium text-black text-sm hover:text-green-600 focus:outline-none transition-colors"
                     href="{{ route('services') }}">Layanan</a>
-                <a class="font-semibold text-black text-base hover:text-amber-600 focus:outline-none transition-colors"
-                    href="{{ route('gallery') }}">Galeri</a>
-                <a class="font-semibold text-black text-base hover:text-amber-600 focus:outline-none transition-colors"
+                <a class="font-medium text-black text-sm hover:text-green-600 focus:outline-none transition-colors"
+                    href="{{ route('gallery.index') }}">Galeri</a>
+                <a class="font-medium text-black text-sm hover:text-green-600 focus:outline-none transition-colors"
                     href="{{ route('testimonials') }}">Testimoni</a>
-                <a class="font-semibold text-black text-base hover:text-amber-600 focus:outline-none transition-colors"
+                <a class="font-medium text-black text-sm hover:text-green-600 focus:outline-none transition-colors"
                     href="{{ route('contact') }}">Kontak</a>
 
                 @guest
                     <div class="flex gap-2">
-                        <a class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                        <a class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-xs font-medium transition-colors"
                             href="{{ route('login') }}">Masuk</a>
-                        <a class="border border-amber-600 text-amber-600 hover:bg-amber-600 hover:text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                        <a class="border border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded text-xs font-medium transition-colors"
                             href="{{ route('register') }}">Daftar</a>
                     </div>
                 @else
                     <div class="relative">
                         <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
-                            class="text-white font-medium rounded-full text-sm inline-flex items-center border border-amber-300 p-2 bg-amber-600 hover:bg-amber-700 transition-colors"
+                            class="text-white font-medium rounded-full text-sm inline-flex items-center border border-green-300 p-2 bg-green-600 hover:bg-green-700 transition-colors"
                             type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"

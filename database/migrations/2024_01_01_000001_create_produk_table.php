@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('harga', 10, 2);
             $table->string('gambar')->nullable();
             $table->enum('status', ['aktif', 'nonaktif'])->default('aktif');
-            $table->integer('stok')->default(0);
+            $table->integer('jumlah_produksi')->default(0);
             $table->timestamps();
         });
     }

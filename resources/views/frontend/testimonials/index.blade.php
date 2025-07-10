@@ -2,11 +2,11 @@
 
 @section('container')
 <!-- Hero Section -->
-<section class="bg-gradient-to-r from-purple-600 to-pink-600 py-20">
+<section class="bg-green-600 py-16">
     <div class="max-w-6xl mx-auto px-4 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">Testimoni Pelanggan</h1>
-        <p class="text-xl text-purple-100 max-w-3xl mx-auto">
-            Dengarkan cerita kepuasan dari pelanggan yang telah mempercayakan kebutuhan jahit mereka kepada kami
+        <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">Testimoni Pelanggan</h1>
+        <p class="text-lg text-green-100 max-w-3xl mx-auto">
+            Kepuasan pelanggan adalah prioritas utama kami. Lihat apa kata mereka tentang layanan E-Jahit
         </p>
     </div>
 </section>
@@ -16,19 +16,19 @@
     <div class="max-w-6xl mx-auto px-4">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
-                <h3 class="text-4xl font-bold text-purple-600 mb-2">500+</h3>
+                <h3 class="text-3xl font-bold text-green-600 mb-2">500+</h3>
                 <p class="text-gray-600">Pelanggan Puas</p>
             </div>
             <div>
-                <h3 class="text-4xl font-bold text-purple-600 mb-2">4.9/5</h3>
+                <h3 class="text-3xl font-bold text-green-600 mb-2">4.9/5</h3>
                 <p class="text-gray-600">Rating Rata-rata</p>
             </div>
             <div>
-                <h3 class="text-4xl font-bold text-purple-600 mb-2">98%</h3>
+                <h3 class="text-3xl font-bold text-green-600 mb-2">98%</h3>
                 <p class="text-gray-600">Repeat Customer</p>
             </div>
             <div>
-                <h3 class="text-4xl font-bold text-purple-600 mb-2">15+</h3>
+                <h3 class="text-3xl font-bold text-green-600 mb-2">15+</h3>
                 <p class="text-gray-600">Tahun Pengalaman</p>
             </div>
         </div>
@@ -126,7 +126,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Video Testimonial 1 -->
             <div class="bg-gray-100 rounded-xl overflow-hidden shadow-lg">
-                <div class="aspect-video bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center relative group cursor-pointer">
+                <div class="aspect-video bg-gray-200 flex items-center justify-center relative group cursor-pointer">
                     <div class="text-center text-white">
                         <svg class="w-16 h-16 mx-auto mb-2 opacity-80 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M8 5v14l11-7z"/>
@@ -144,7 +144,7 @@
             
             <!-- Video Testimonial 2 -->
             <div class="bg-gray-100 rounded-xl overflow-hidden shadow-lg">
-                <div class="aspect-video bg-gradient-to-br from-blue-400 to-purple-400 flex items-center justify-center relative group cursor-pointer">
+                <div class="aspect-video bg-gray-200 flex items-center justify-center relative group cursor-pointer">
                     <div class="text-center text-white">
                         <svg class="w-16 h-16 mx-auto mb-2 opacity-80 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M8 5v14l11-7z"/>
@@ -162,7 +162,7 @@
             
             <!-- Video Testimonial 3 -->
             <div class="bg-gray-100 rounded-xl overflow-hidden shadow-lg">
-                <div class="aspect-video bg-gradient-to-br from-green-400 to-blue-400 flex items-center justify-center relative group cursor-pointer">
+                <div class="aspect-video bg-gray-200 flex items-center justify-center relative group cursor-pointer">
                     <div class="text-center text-white">
                         <svg class="w-16 h-16 mx-auto mb-2 opacity-80 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M8 5v14l11-7z"/>
@@ -196,18 +196,18 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-gray-700 font-medium mb-2">Nama Lengkap</label>
-                        <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Masukkan nama lengkap">
+                        <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Masukkan nama lengkap">
                     </div>
                     <div>
                         <label class="block text-gray-700 font-medium mb-2">Email</label>
-                        <input type="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Masukkan email">
+                        <input type="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Masukkan email">
                     </div>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-gray-700 font-medium mb-2">Layanan yang Digunakan</label>
-                        <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                        <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
                             <option>Pilih layanan</option>
                             <option>Baju Pengantin</option>
                             <option>Seragam Sekolah</option>
@@ -233,18 +233,18 @@
                 
                 <div>
                     <label class="block text-gray-700 font-medium mb-2">Testimoni</label>
-                    <textarea rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Ceritakan pengalaman Anda menggunakan layanan kami..."></textarea>
+                    <textarea rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="Ceritakan pengalaman Anda menggunakan layanan kami..."></textarea>
                 </div>
                 
                 <div class="flex items-center">
-                    <input type="checkbox" class="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500">
+                    <input type="checkbox" class="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500">
                     <label class="ml-2 text-gray-600 text-sm">
                         Saya setuju untuk menampilkan testimoni ini di website E-Jahit
                     </label>
                 </div>
                 
                 <div class="text-center">
-                    <button type="submit" class="bg-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors">
+                    <button type="submit" class="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors">
                         Kirim Testimoni
                     </button>
                 </div>
@@ -254,17 +254,17 @@
 </section>
 
 <!-- CTA Section -->
-<section class="bg-gradient-to-r from-purple-600 to-pink-600 py-16">
+<section class="bg-green-600 py-16">
     <div class="max-w-4xl mx-auto px-4 text-center">
         <h2 class="text-3xl font-bold text-white mb-6">Siap Menjadi Pelanggan Berikutnya?</h2>
-        <p class="text-xl text-purple-100 mb-8">
+        <p class="text-xl text-green-100 mb-8">
             Bergabunglah dengan ratusan pelanggan yang telah merasakan kepuasan layanan jahit terbaik dari kami
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="{{ route('contact') }}" class="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+            <a href="{{ route('contact') }}" class="bg-white text-green-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
                 Konsultasi Gratis
             </a>
-            <a href="{{ route('services') }}" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-purple-600 transition-colors">
+            <a href="{{ route('services') }}" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition-colors">
                 Lihat Layanan
             </a>
         </div>
