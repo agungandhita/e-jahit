@@ -41,7 +41,7 @@
 
                 <!-- Manajemen Produk -->
                 <div class="mt-6">
-                    <h6 class="text-blue-600 text-sm font-bold px-4">Manajemen Produk</h6>
+                    <h6 class="text-blue-600 text-sm font-bold px-4">Manajemen Produk & Layanan</h6>
                     <ul class="mt-3 space-y-2">
                         <li>
                             <a href="{{ route('admin.produk.index') }}" class="text-gray-800 text-sm flex items-center hover:bg-gray-100 rounded-md px-4 py-2 transition-all">
@@ -52,11 +52,11 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.produk.create') }}" class="text-gray-800 text-sm flex items-center hover:bg-gray-100 rounded-md px-4 py-2 transition-all">
+                            <a href="{{ route('admin.layanan.index') }}" class="text-gray-800 text-sm flex items-center hover:bg-gray-100 rounded-md px-4 py-2 transition-all">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-3" viewBox="0 0 24 24">
                                     <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
                                 </svg>
-                                <span>Tambah Produk</span>
+                                <span>Layanan</span>
                             </a>
                         </li>
                     </ul>

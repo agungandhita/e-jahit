@@ -39,12 +39,12 @@ class LoginController extends Controller
             $user = Auth::user();
             $request->session()->regenerate();
             Alert::success('Berhasil!', 'Selamat datang, ' . $user->name . '!');
-            
+
             // Redirect based on user role
             if ($user->role === 'admin') {
                 return redirect()->intended('/admin');
             }
-            
+
             return redirect()->intended('/');
         }
 
@@ -62,6 +62,6 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
 
         Alert::success('Berhasil!', 'Anda telah keluar dari sistem.');
-        return redirect()->route('login');
+        return redirect()->route('home');
     }
 }

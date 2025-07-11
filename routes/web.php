@@ -8,6 +8,7 @@ use App\Http\Controllers\Frontend\KatalogController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProdukController;
+use App\Http\Controllers\Admin\LayananController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,7 @@ use App\Http\Controllers\Admin\ProdukController;
 // Frontend Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/tentang-kami', [HomeController::class, 'about'])->name('about');
-Route::get('/layanan', [HomeController::class, 'services'])->name('services');
+Route::get('/layanan', [\App\Http\Controllers\Frontend\LayananController::class, 'index'])->name('services');
 
 // Gallery routes
 Route::get('/galeri', [KatalogController::class, 'index'])->name('gallery.index');
@@ -39,19 +40,9 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Google OAuth
-Route::get('/auth/google', [LoginController::class, 'redirectToGoogle'])->name('google.redirect');
-Route::get('/auth/google/callback', [LoginController::class, 'handleGoogleCallback'])->name('google.callback');
-
 // Register Routes
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
-
-// OTP Routes
-
-Route::get('/verify-otp', [RegisterController::class, 'showOtpForm'])->name('otp.verify.form');
-Route::post('/verify-otp', [RegisterController::class, 'verifyOtp'])->name('otp.verify');
-Route::post('/resend-otp', [RegisterController::class, 'resendOtp'])->name('otp.resend');
 
 // Admin Routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
@@ -68,4 +59,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::patch('produk/{produk}/toggle-status', [ProdukController::class, 'toggleStatus'])->name('admin.produk.toggle-status');
     Route::delete('produk-foto/{foto}', [ProdukController::class, 'deleteFoto'])->name('admin.produk.delete-foto');
     Route::patch('produk-foto/{foto}/set-primary', [ProdukController::class, 'setPrimaryFoto'])->name('admin.produk.set-primary-foto');
+
+    // Layanan Management Routes
+    Route::resource('layanan', LayananController::class, ['as' => 'admin']);
+    Route::patch('layanan/{layanan}/toggle-status', [LayananController::class, 'toggleStatus'])->name('admin.layanan.toggle-status');
 });

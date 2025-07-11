@@ -14,53 +14,74 @@
 <!-- Services Grid -->
 <section class="py-16">
     <div class="max-w-6xl mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            @foreach($services as $service)
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <!-- Service Image Placeholder -->
-                <div class="h-48 bg-gradient-to-br {{ $service['gradient'] }} flex items-center justify-center">
-                    <div class="text-center">
-                        <svg class="w-16 h-16 mx-auto {{ $service['icon_color'] }} mb-2" fill="currentColor" viewBox="0 0 24 24">
-                            {!! $service['icon'] !!}
-                        </svg>
-                        <p class="text-white font-medium">{{ $service['name'] }}</p>
-                    </div>
-                </div>
-                
-                <!-- Service Content -->
-                <div class="p-6">
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">{{ $service['name'] }}</h3>
-                    <p class="text-gray-600 mb-4">{{ $service['description'] }}</p>
-                    
-                    <!-- Features -->
-                    <div class="mb-4">
-                        <h4 class="font-semibold text-gray-800 mb-2">Yang Termasuk:</h4>
-                        <ul class="text-sm text-gray-600 space-y-1">
-                            @foreach($service['features'] as $feature)
-                            <li class="flex items-center">
-                                <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                </svg>
-                                {{ $feature }}
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    
-                    <!-- Price -->
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <span class="text-2xl font-bold text-gray-800">{{ $service['price'] }}</span>
-                            <span class="text-gray-500 text-sm">/{{ $service['unit'] }}</span>
+        @if($layanan->count() > 0)
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @foreach($layanan as $service)
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <!-- Service Image Placeholder -->
+                    <div class="h-48 bg-gradient-to-br {{ $service->gradient_class }} flex items-center justify-center">
+                        <div class="text-center">
+                            <svg class="w-16 h-16 mx-auto text-white mb-2" fill="currentColor" viewBox="0 0 24 24">
+                                {!! $service->icon_svg !!}
+                            </svg>
+                            <p class="text-white font-medium">{{ $service->nama_layanan }}</p>
                         </div>
-                        <a href="{{ route('contact') }}" class="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 transition-colors text-sm">
-                            Pesan Sekarang
-                        </a>
+                    </div>
+                    
+                    <!-- Service Content -->
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">{{ $service->nama_layanan }}</h3>
+                        <p class="text-gray-600 mb-4">{{ $service->deskripsi }}</p>
+                        
+                        <!-- Service Type -->
+                        <div class="mb-4">
+                            <span class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
+                                {{ $service->jenis_layanan_label }}
+                            </span>
+                        </div>
+                        
+                        <!-- Estimation -->
+                        <div class="mb-4">
+                            <h4 class="font-semibold text-gray-800 mb-2">Estimasi Pengerjaan:</h4>
+                            <p class="text-sm text-gray-600">{{ $service->estimasi_format }}</p>
+                        </div>
+                        
+                        @if($service->catatan)
+                        <!-- Additional Notes -->
+                        <div class="mb-4">
+                            <h4 class="font-semibold text-gray-800 mb-2">Catatan:</h4>
+                            <p class="text-sm text-gray-600">{{ $service->catatan }}</p>
+                        </div>
+                        @endif
+                        
+                        <!-- Price -->
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-2xl font-bold text-gray-800">{{ $service->harga_format }}</span>
+                            </div>
+                            @auth
+                                <a href="{{ route('contact') }}" class="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 transition-colors text-sm">
+                                    Pesan Sekarang
+                                </a>
+                            @else
+                                <a href="{{ route('login') }}" class="bg-green-600 text-white px-3 py-2 rounded hover:bg-green-700 transition-colors text-sm">
+                                    Login untuk Pesan
+                                </a>
+                            @endauth
+                        </div>
                     </div>
                 </div>
+                @endforeach
             </div>
-            @endforeach
-        </div>
+        @else
+            <div class="text-center py-16">
+                <svg class="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">Belum Ada Layanan</h3>
+                <p class="text-gray-500">Layanan sedang dalam proses pengembangan.</p>
+            </div>
+        @endif
     </div>
 </section>
 
