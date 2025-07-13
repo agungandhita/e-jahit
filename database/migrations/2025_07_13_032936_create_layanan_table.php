@@ -14,14 +14,17 @@ return new class extends Migration
         Schema::create('layanan', function (Blueprint $table) {
             $table->id('layanan_id');
             $table->string('nama_layanan');
-            $table->enum('jenis_layanan', ['baju_pria', 'baju_wanita', 'baju_anak', 'celana', 'rok', 'dress', 'kebaya', 'seragam', 'lainnya']);
+            $table->enum('jenis_layanan', ['baju_pengantin', 'seragam_sekolah', 'baju_kerja', 'kebaya', 'gamis', 'jas', 'baju_anak']);
             $table->text('deskripsi')->nullable();
-            $table->decimal('harga_mulai', 10, 2);
-            $table->decimal('harga_sampai', 10, 2)->nullable();
-            $table->integer('estimasi_hari')->default(7);
+            $table->decimal('harga_mulai', 12, 2);
+            $table->decimal('harga_sampai', 12, 2);
+            $table->integer('estimasi_hari');
             $table->text('catatan')->nullable();
             $table->enum('status', ['aktif', 'nonaktif'])->default('aktif');
             $table->timestamps();
+
+            // Index untuk pencarian
+            $table->index(['jenis_layanan', 'status']);
         });
     }
 

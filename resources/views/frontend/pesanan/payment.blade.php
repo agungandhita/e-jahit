@@ -1,0 +1,295 @@
+@extends('frontend.layouts.main')
+
+@section('title', 'Pembayaran Pesanan #' . $pesanan->pesanan_id . ' - E-Jahit')
+
+@section('container')
+<!-- Hero Section -->
+<section class="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-16">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <!-- Breadcrumb -->
+            <nav class="mb-6">
+                <ol class="flex items-center space-x-2 text-sm">
+                    <li><a href="{{ route('home') }}" class="text-blue-200 hover:text-white">Beranda</a></li>
+                    <li class="text-blue-200">/</li>
+                    <li><a href="{{ route('pesanan.index') }}" class="text-blue-200 hover:text-white">Pesanan Saya</a></li>
+                    <li class="text-blue-200">/</li>
+                    <li><a href="{{ route('pesanan.show', $pesanan->pesanan_id) }}" class="text-blue-200 hover:text-white">Detail Pesanan</a></li>
+                    <li class="text-blue-200">/</li>
+                    <li class="text-white font-medium">Pembayaran</li>
+                </ol>
+            </nav>
+            
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="{{ route('pesanan.show', $pesanan->pesanan_id) }}" class="mr-4 text-white hover:text-blue-200 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </a>
+                    <div>
+                        <h1 class="text-4xl lg:text-5xl font-bold mb-2 text-white">Pembayaran</h1>
+                        <p class="text-xl lg:text-2xl text-blue-100">Pesanan #{{ $pesanan->pesanan_id }} - {{ $pesanan->layanan->nama_layanan }}</p>
+                    </div>
+                </div>
+                
+                <!-- Payment Status -->
+                <div class="text-right">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2">
+                        <div class="text-sm text-blue-200">Total Pembayaran</div>
+                        <div class="text-2xl font-bold text-white">{{ $pesanan->total_harga_format }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Payment Section -->
+<section class="py-16 px-4 bg-blue-50">
+    <div class="container mx-auto">
+        <div class="max-w-4xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Payment Instructions -->
+                <div class="bg-white rounded-xl shadow-lg p-8 border border-blue-100">
+                    <h2 class="text-2xl font-bold text-blue-800 mb-6">Instruksi Pembayaran</h2>
+
+                    <!-- Payment Amount -->
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
+                        <h3 class="text-lg font-semibold text-blue-800 mb-2">Total Pembayaran</h3>
+                        <p class="text-3xl font-bold text-blue-600">{{ $pesanan->total_harga_format }}</p>
+                    </div>
+
+                    <!-- Bank Transfer Options -->
+                    <div class="space-y-4 mb-6">
+                        <h3 class="text-lg font-semibold text-blue-800">Pilih Metode Pembayaran</h3>
+
+                        <!-- BCA -->
+                        <div class="border border-blue-200 rounded-lg p-4 hover:bg-blue-50">
+                            <div class="flex items-center mb-2">
+                                <div class="w-12 h-8 bg-blue-600 rounded flex items-center justify-center mr-3">
+                                    <span class="text-white font-bold text-sm">BCA</span>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-blue-800">Bank Central Asia (BCA)</p>
+                                    <p class="text-sm text-blue-600">Transfer Bank</p>
+                                </div>
+                            </div>
+                            <div class="ml-15">
+                                <p class="text-sm text-blue-600">No. Rekening:</p>
+                                <p class="font-mono font-bold text-lg text-blue-800">1234567890</p>
+                                <p class="text-sm text-blue-600">a.n. E-Jahit Indonesia</p>
+                            </div>
+                        </div>
+
+                        <!-- Mandiri -->
+                        <div class="border border-blue-200 rounded-lg p-4 hover:bg-blue-50">
+                            <div class="flex items-center mb-2">
+                                <div class="w-12 h-8 bg-yellow-500 rounded flex items-center justify-center mr-3">
+                                    <span class="text-white font-bold text-xs">MDR</span>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-blue-800">Bank Mandiri</p>
+                                    <p class="text-sm text-blue-600">Transfer Bank</p>
+                                </div>
+                            </div>
+                            <div class="ml-15">
+                                <p class="text-sm text-blue-600">No. Rekening:</p>
+                                <p class="font-mono font-bold text-lg text-blue-800">0987654321</p>
+                                <p class="text-sm text-blue-600">a.n. E-Jahit Indonesia</p>
+                            </div>
+                        </div>
+
+                        <!-- BRI -->
+                        <div class="border border-blue-200 rounded-lg p-4 hover:bg-blue-50">
+                            <div class="flex items-center mb-2">
+                                <div class="w-12 h-8 bg-blue-800 rounded flex items-center justify-center mr-3">
+                                    <span class="text-white font-bold text-sm">BRI</span>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-blue-800">Bank Rakyat Indonesia (BRI)</p>
+                                    <p class="text-sm text-blue-600">Transfer Bank</p>
+                                </div>
+                            </div>
+                            <div class="ml-15">
+                                <p class="text-sm text-blue-600">No. Rekening:</p>
+                                <p class="font-mono font-bold text-lg text-blue-800">5678901234</p>
+                                <p class="text-sm text-blue-600">a.n. E-Jahit Indonesia</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Instructions -->
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <h4 class="font-semibold text-blue-800 mb-2">Langkah Pembayaran:</h4>
+                        <ol class="list-decimal list-inside text-sm text-blue-700 space-y-1">
+                            <li>Transfer sesuai nominal yang tertera</li>
+                            <li>Simpan bukti transfer</li>
+                            <li>Upload bukti transfer di form sebelah</li>
+                            <li>Tunggu konfirmasi dari admin</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Upload Form -->
+                <div class="bg-white rounded-xl shadow-lg p-8 border border-blue-100">
+                    <h2 class="text-2xl font-bold text-blue-800 mb-6">Upload Bukti Pembayaran</h2>
+
+                    @if($pesanan->bukti_pembayaran)
+                        <!-- Already Uploaded -->
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
+                            <div class="text-4xl mb-4">✅</div>
+                            <h3 class="text-lg font-semibold text-blue-800 mb-2">Bukti Pembayaran Sudah Diupload</h3>
+                            <p class="text-blue-600 mb-4">Terima kasih! Bukti pembayaran Anda sudah kami terima dan sedang dalam proses verifikasi.</p>
+
+                            <!-- Show uploaded image -->
+                            <div class="mb-4">
+                                <img src="{{ asset('storage/' . $pesanan->bukti_pembayaran) }}"
+                                     alt="Bukti Pembayaran"
+                                     class="max-w-xs mx-auto rounded-lg border border-blue-200">
+                            </div>
+
+                            <div class="space-y-3">
+                                <a href="{{ route('pesanan.show', $pesanan->pesanan_id) }}"
+                                   class="block bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                                    Kembali ke Detail Pesanan
+                                </a>
+                                <a href="https://wa.me/6281234567890?text=Halo%20E-Jahit,%20saya%20sudah%20upload%20bukti%20pembayaran%20untuk%20pesanan%20%23{{ $pesanan->pesanan_id }}"
+                                   target="_blank"
+                                   class="block border-2 border-blue-600 text-blue-600 py-3 px-6 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition-colors">
+                                    Konfirmasi via WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    @else
+                        <!-- Upload Form -->
+                        <form action="{{ route('pesanan.upload-payment', $pesanan->pesanan_id) }}" method="POST" enctype="multipart/form-data" id="paymentForm">
+                            @csrf
+
+                            <!-- Order Summary -->
+                            <div class="bg-blue-50 rounded-lg p-4 mb-6 border border-blue-200">
+                                <h3 class="font-semibold text-blue-800 mb-3">Ringkasan Pesanan</h3>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex justify-between">
+                                        <span class="text-blue-600">Pesanan:</span>
+                                        <span class="font-medium text-blue-800">#{{ $pesanan->pesanan_id }}</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-blue-600">Layanan:</span>
+                                        <span class="font-medium text-blue-800">{{ $pesanan->layanan->nama_layanan }}</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-blue-600">Jumlah:</span>
+                                        <span class="font-medium text-blue-800">{{ $pesanan->jumlah }} pcs</span>
+                                    </div>
+                                    <hr class="my-2 border-blue-200">
+                                    <div class="flex justify-between font-bold">
+                                        <span class="text-blue-800">Total:</span>
+                                        <span class="text-blue-600">{{ $pesanan->total_harga_format }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- File Upload -->
+                            <div class="mb-6">
+                                <label for="bukti_pembayaran" class="block text-sm font-medium text-blue-700 mb-2">
+                                    Bukti Pembayaran *
+                                </label>
+                                <div class="border-2 border-dashed border-blue-300 rounded-lg p-6 text-center hover:border-blue-500 transition-colors" id="dropZone">
+                                    <input type="file" id="bukti_pembayaran" name="bukti_pembayaran" accept="image/*" required class="hidden">
+                                    <div id="uploadText">
+                                        <div class="text-4xl mb-4 text-blue-400">📁</div>
+                                        <p class="text-blue-600 mb-2">Klik untuk pilih file atau drag & drop</p>
+                                        <p class="text-sm text-blue-500">Format: JPG, PNG, JPEG (Max: 2MB)</p>
+                                    </div>
+                                    <div id="previewContainer" class="hidden">
+                                        <img id="imagePreview" class="max-w-xs mx-auto rounded-lg border border-blue-200">
+                                        <p id="fileName" class="mt-2 text-sm text-blue-600"></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <button type="submit" id="submitBtn" class="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:bg-blue-300" disabled>
+                                    Upload Bukti Pembayaran
+                                </button>
+                                <a href="{{ route('pesanan.show', $pesanan->pesanan_id) }}" class="flex-1 border-2 border-blue-300 text-blue-700 py-3 px-6 rounded-lg font-semibold hover:bg-blue-50 transition-colors text-center">
+                                    Kembali
+                                </a>
+                            </div>
+                        </form>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+// JavaScript untuk upload file
+document.addEventListener('DOMContentLoaded', function() {
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('bukti_pembayaran');
+    const uploadText = document.getElementById('uploadText');
+    const previewContainer = document.getElementById('previewContainer');
+    const imagePreview = document.getElementById('imagePreview');
+    const fileName = document.getElementById('fileName');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // Click to select file
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    // Drag and drop
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('border-blue-500', 'bg-blue-50');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('border-blue-500', 'bg-blue-50');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('border-blue-500', 'bg-blue-50');
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            fileInput.files = files;
+            handleFileSelect(files[0]);
+        }
+    });
+
+    // File input change
+    fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+            handleFileSelect(e.target.files[0]);
+        }
+    });
+
+    function handleFileSelect(file) {
+        // Validate file
+        if (!file.type.startsWith('image/')) {
+            alert('Harap pilih file gambar (JPG, PNG, JPEG)');
+            return;
+        }
+
+        if (file.size > 2 * 1024 * 1024) {
+            alert('Ukuran file maksimal 2MB');
+            return;
+        }
+
+        // Show preview
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            imagePreview.src = e.target.result;
+            fileName.textContent = file.name;
+            uploadText.classList.add('hidden');
+            previewContainer.classList.remove('hidden');
+            submitBtn.disabled = false;
+        };
+        reader.readAsDataURL(file);
+    }
+});
+</script>
+@endsection

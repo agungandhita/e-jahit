@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProdukController;
 use App\Http\Controllers\Admin\LayananController;
+use App\Http\Controllers\Admin\PesananController;
+use App\Http\Controllers\Frontend\PesananController as FrontendPesananController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +28,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/tentang-kami', [HomeController::class, 'about'])->name('about');
 Route::get('/layanan', [\App\Http\Controllers\Frontend\LayananController::class, 'index'])->name('services');
 
+
 // Gallery routes
 Route::get('/galeri', [KatalogController::class, 'index'])->name('gallery.index');
 Route::get('/galeri/{id}', [KatalogController::class, 'show'])->name('gallery.detail');
@@ -34,6 +37,18 @@ Route::get('/galeri/filter/kategori', [KatalogController::class, 'filterByCatego
 Route::get('/testimoni', [HomeController::class, 'testimonials'])->name('testimonials');
 Route::get('/kontak', [HomeController::class, 'contact'])->name('contact');
 Route::post('/kontak', [HomeController::class, 'contactSubmit'])->name('contact.submit');
+
+// Pesanan Routes (Frontend)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/pesanan', [FrontendPesananController::class, 'index'])->name('pesanan.index');
+    Route::get('/pesanan/buat/{layanan_id}', [FrontendPesananController::class, 'create'])->name('pesanan.create');
+    Route::post('/pesanan', [FrontendPesananController::class, 'store'])->name('pesanan.store');
+    Route::get('/pesanan/{id}', [FrontendPesananController::class, 'show'])->name('pesanan.show');
+    Route::get('/pesanan/{id}/pembayaran', [FrontendPesananController::class, 'payment'])->name('pesanan.payment');
+    Route::post('/pesanan/{id}/upload-pembayaran', [FrontendPesananController::class, 'uploadPayment'])->name('pesanan.upload-payment');
+    Route::patch('/pesanan/{id}/batal', [FrontendPesananController::class, 'cancel'])->name('pesanan.cancel');
+    Route::post('/pesanan/estimasi-harga', [FrontendPesananController::class, 'getPriceEstimation'])->name('pesanan.price-estimation');
+});
 
 // Auth Routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
@@ -63,4 +78,5 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     // Layanan Management Routes
     Route::resource('layanan', LayananController::class, ['as' => 'admin']);
     Route::patch('layanan/{layanan}/toggle-status', [LayananController::class, 'toggleStatus'])->name('admin.layanan.toggle-status');
+
 });

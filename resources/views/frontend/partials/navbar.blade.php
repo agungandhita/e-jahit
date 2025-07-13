@@ -47,6 +47,11 @@
                     href="{{ route('testimonials') }}">Testimoni</a> --}}
                 <a class="font-medium text-black text-sm hover:text-green-600 focus:outline-none transition-colors"
                     href="{{ route('contact') }}">Kontak</a>
+                
+                @auth
+                    <a class="font-medium text-black text-sm hover:text-green-600 focus:outline-none transition-colors"
+                        href="{{ route('pesanan.index') }}">Pesanan Saya</a>
+                @endauth
 
                 @guest
                     <div class="flex gap-2">
@@ -73,7 +78,7 @@
                             role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
                                 tabindex="-1">Profil</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
+                            <a href="{{ route('pesanan.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem"
                                 tabindex="-1">Pesanan Saya</a>
                             <form action="/logout" method="POST" class="block">
                                 @csrf
