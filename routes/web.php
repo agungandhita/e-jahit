@@ -48,6 +48,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/pesanan/{id}/upload-pembayaran', [FrontendPesananController::class, 'uploadPayment'])->name('pesanan.upload-payment');
     Route::patch('/pesanan/{id}/batal', [FrontendPesananController::class, 'cancel'])->name('pesanan.cancel');
     Route::post('/pesanan/estimasi-harga', [FrontendPesananController::class, 'getPriceEstimation'])->name('pesanan.price-estimation');
+    
+    // Profile Routes
+    Route::get('/profil', [\App\Http\Controllers\Frontend\ProfileController::class, 'index'])->name('profile.index');
+    Route::put('/profil', [\App\Http\Controllers\Frontend\ProfileController::class, 'update'])->name('profile.update');
 });
 
 // Auth Routes
@@ -78,5 +82,14 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     // Layanan Management Routes
     Route::resource('layanan', LayananController::class, ['as' => 'admin']);
     Route::patch('layanan/{layanan}/toggle-status', [LayananController::class, 'toggleStatus'])->name('admin.layanan.toggle-status');
+
+    // Pesanan Management Routes
+    Route::resource('pesanan', PesananController::class, ['as' => 'admin']);
+    Route::patch('pesanan/{pesanan}/update-status', [PesananController::class, 'updateStatus'])->name('admin.pesanan.update-status');
+    Route::patch('pesanan/{pesanan}/konfirmasi-pembayaran', [PesananController::class, 'konfirmasiPembayaran'])->name('admin.pesanan.konfirmasi-pembayaran');
+    Route::patch('pesanan/{pesanan}/tolak-pembayaran', [PesananController::class, 'tolakPembayaran'])->name('admin.pesanan.tolak-pembayaran');
+    Route::patch('pesanan/{pesanan}/update-harga', [PesananController::class, 'updateHarga'])->name('admin.pesanan.update-harga');
+    Route::post('pesanan/bulk-action', [PesananController::class, 'bulkAction'])->name('admin.pesanan.bulk-action');
+    Route::get('pesanan/export', [PesananController::class, 'export'])->name('admin.pesanan.export');
 
 });

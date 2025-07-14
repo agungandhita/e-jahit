@@ -31,6 +31,7 @@ class Pesanan extends Model
         'harga_dasar',
         'biaya_tambahan',
         'total_harga',
+        'nominal_konfirmasi',
         'status',
         'bukti_pembayaran',
         'tanggal_bayar',
@@ -42,6 +43,7 @@ class Pesanan extends Model
         'harga_dasar' => 'decimal:2',
         'biaya_tambahan' => 'decimal:2',
         'total_harga' => 'decimal:2',
+        'nominal_konfirmasi' => 'decimal:2',
         'tanggal_bayar' => 'datetime',
         'tanggal_selesai' => 'datetime'
     ];
@@ -90,12 +92,18 @@ class Pesanan extends Model
         return 'Rp ' . number_format($this->total_harga, 0, ',', '.');
     }
 
+    // Method untuk format nominal konfirmasi
+    public function getNominalKonfirmasiFormatAttribute()
+    {
+        return $this->nominal_konfirmasi ? 'Rp ' . number_format($this->nominal_konfirmasi, 0, ',', '.') : '-';
+    }
+
     // Method untuk mendapatkan status badge class
     public function getStatusBadgeClassAttribute()
     {
         $classes = [
             'pending' => 'bg-yellow-100 text-yellow-800',
-            'dibayar' => 'bg-blue-100 text-blue-800',
+            'konfirmasi' => 'bg-blue-100 text-blue-800',
             'diproses' => 'bg-purple-100 text-purple-800',
             'selesai' => 'bg-green-100 text-green-800',
             'dibatalkan' => 'bg-red-100 text-red-800'
@@ -109,7 +117,7 @@ class Pesanan extends Model
     {
         $labels = [
             'pending' => 'Menunggu Konfirmasi',
-            'dibayar' => 'Sudah Dibayar', 
+            'konfirmasi' => 'Sudah Dikonfirmasi', 
             'diproses' => 'Sedang Dikerjakan',
             'selesai' => 'Selesai',
             'dibatalkan' => 'Dibatalkan'
@@ -145,7 +153,7 @@ class Pesanan extends Model
     {
         $progress = [
             'pending' => 25,
-            'dibayar' => 50,
+            'konfirmasi' => 50,
             'diproses' => 75,
             'selesai' => 100,
             'dibatalkan' => 0
@@ -157,7 +165,7 @@ class Pesanan extends Model
     // Method untuk cek apakah bisa dibatalkan
     public function canBeCancelled()
     {
-        return in_array($this->status, ['pending', 'dibayar']);
+        return in_array($this->status, ['pending']);
     }
 
     // Method untuk cek apakah bisa upload bukti pembayaran

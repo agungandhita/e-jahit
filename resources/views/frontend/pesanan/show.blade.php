@@ -4,52 +4,52 @@
 
 @section('container')
 <!-- Hero Section -->
-<section class="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-16">
-    <div class="container mx-auto px-4">
+<section class="bg-green-600 text-white py-20">
+    <div class="container mx-auto px-4 max-w-6xl">
         <div class="max-w-4xl mx-auto">
             <!-- Breadcrumb -->
             <nav class="mb-6">
                 <ol class="flex items-center space-x-2 text-sm">
-                    <li><a href="{{ route('home') }}" class="text-blue-200 hover:text-white">Beranda</a></li>
-                    <li class="text-blue-200">/</li>
-                    <li><a href="{{ route('pesanan.index') }}" class="text-blue-200 hover:text-white">Pesanan Saya</a></li>
-                    <li class="text-blue-200">/</li>
+                    <li><a href="{{ route('home') }}" class="text-green-200 hover:text-white">Beranda</a></li>
+                    <li class="text-green-200">/</li>
+                    <li><a href="{{ route('pesanan.index') }}" class="text-green-200 hover:text-white">Pesanan Saya</a></li>
+                    <li class="text-green-200">/</li>
                     <li class="text-white font-medium">Detail Pesanan</li>
                 </ol>
             </nav>
             
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
-                    <a href="{{ route('pesanan.index') }}" class="mr-4 text-white hover:text-blue-200 transition-colors">
+                    <a href="{{ route('pesanan.index') }}" class="mr-4 text-white hover:text-green-200 transition-colors">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                         </svg>
                     </a>
                     <div>
                         <h1 class="text-4xl lg:text-5xl font-bold mb-2 text-white">Detail Pesanan</h1>
-                        <p class="text-xl lg:text-2xl text-blue-100">Pesanan #{{ $pesanan->pesanan_id }} - {{ $pesanan->layanan->nama_layanan }}</p>
+                        <p class="text-xl lg:text-2xl text-green-100">Pesanan #{{ $pesanan->pesanan_id }} - {{ $pesanan->layanan->nama_layanan }}</p>
                     </div>
                 </div>
                 
                 <!-- Order Status -->
                 <div class="text-right">
                     <div class="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2">
-                        <div class="text-sm text-blue-200">Status Pesanan</div>
+                        <div class="text-sm text-green-200">Status Pesanan</div>
                         <div class="text-lg font-bold text-white">
                             @switch($pesanan->status)
                                 @case('pending')
                                     Menunggu Konfirmasi
                                     @break
-                                @case('confirmed')
+                                @case('konfirmasi')
                                     Dikonfirmasi
                                     @break
-                                @case('in_progress')
+                                @case('diproses')
                                     Sedang Dikerjakan
                                     @break
-                                @case('completed')
+                                @case('selesai')
                                     Selesai
                                     @break
-                                @case('cancelled')
+                                @case('dibatalkan')
                                     Dibatalkan
                                     @break
                                 @default
@@ -77,7 +77,7 @@
                         <!-- Status Timeline -->
                         <div class="space-y-4">
                             <div class="flex items-center">
-                                <div class="w-4 h-4 rounded-full {{ in_array($pesanan->status, ['pending', 'confirmed', 'in_progress', 'completed']) ? 'bg-blue-500' : 'bg-gray-300' }} mr-4"></div>
+                                <div class="w-4 h-4 rounded-full {{ in_array($pesanan->status, ['pending', 'konfirmasi', 'diproses', 'selesai']) ? 'bg-green-500' : 'bg-gray-300' }} mr-4"></div>
                                 <div class="flex-1">
                                     <p class="font-medium text-gray-800">Pesanan Dibuat</p>
                                     <p class="text-sm text-gray-500">{{ $pesanan->created_at->format('d M Y, H:i') }}</p>
@@ -85,11 +85,11 @@
                             </div>
 
                             <div class="flex items-center">
-                                <div class="w-4 h-4 rounded-full {{ in_array($pesanan->status, ['confirmed', 'in_progress', 'completed']) ? 'bg-blue-500' : 'bg-gray-300' }} mr-4"></div>
+                                <div class="w-4 h-4 rounded-full {{ in_array($pesanan->status, ['konfirmasi', 'diproses', 'selesai']) ? 'bg-green-500' : 'bg-gray-300' }} mr-4"></div>
                                 <div class="flex-1">
                                     <p class="font-medium text-gray-800">Pesanan Dikonfirmasi</p>
                                     <p class="text-sm text-gray-500">
-                                        @if(in_array($pesanan->status, ['confirmed', 'in_progress', 'completed']))
+                                        @if(in_array($pesanan->status, ['konfirmasi', 'diproses', 'selesai']))
                                             {{ $pesanan->updated_at->format('d M Y, H:i') }}
                                         @else
                                             Menunggu konfirmasi
@@ -99,11 +99,11 @@
                             </div>
 
                             <div class="flex items-center">
-                                <div class="w-4 h-4 rounded-full {{ in_array($pesanan->status, ['in_progress', 'completed']) ? 'bg-blue-500' : 'bg-gray-300' }} mr-4"></div>
+                                <div class="w-4 h-4 rounded-full {{ in_array($pesanan->status, ['diproses', 'selesai']) ? 'bg-green-500' : 'bg-gray-300' }} mr-4"></div>
                                 <div class="flex-1">
                                     <p class="font-medium text-gray-800">Sedang Dikerjakan</p>
                                     <p class="text-sm text-gray-500">
-                                        @if(in_array($pesanan->status, ['in_progress', 'completed']))
+                                        @if(in_array($pesanan->status, ['diproses', 'selesai']))
                                             Pesanan sedang dalam proses pengerjaan
                                         @else
                                             Belum dimulai
@@ -113,11 +113,11 @@
                             </div>
 
                             <div class="flex items-center">
-                                <div class="w-4 h-4 rounded-full {{ $pesanan->status == 'completed' ? 'bg-blue-500' : 'bg-gray-300' }} mr-4"></div>
+                                <div class="w-4 h-4 rounded-full {{ $pesanan->status == 'selesai' ? 'bg-green-500' : 'bg-gray-300' }} mr-4"></div>
                                 <div class="flex-1">
                                     <p class="font-medium text-gray-800">Pesanan Selesai</p>
                                     <p class="text-sm text-gray-500">
-                                        @if($pesanan->status == 'completed')
+                                        @if($pesanan->status == 'selesai')
                                             Pesanan telah selesai dikerjakan
                                         @else
                                             Estimasi: {{ $pesanan->estimasi_selesai ? $pesanan->estimasi_selesai->format('d M Y') : '-' }}
@@ -179,7 +179,17 @@
                         <div class="mt-6">
                             <h3 class="font-semibold text-gray-800 mb-3">Ukuran Detail</h3>
                             <div class="bg-gray-50 p-4 rounded-lg">
-                                <p class="text-gray-700 whitespace-pre-line">{{ $pesanan->ukuran }}</p>
+                                @if(is_array($pesanan->detail_ukuran) && count($pesanan->detail_ukuran) > 0)
+                                    @foreach($pesanan->detail_ukuran as $ukuran)
+                                        @if(isset($ukuran['nilai']))
+                                            <p class="text-gray-700 whitespace-pre-line">{{ $ukuran['nilai'] }}</p>
+                                        @endif
+                                    @endforeach
+                                @elseif(is_string($pesanan->detail_ukuran))
+                                    <p class="text-gray-700 whitespace-pre-line">{{ $pesanan->detail_ukuran }}</p>
+                                @else
+                                    <p class="text-gray-500 italic">Data ukuran tidak tersedia</p>
+                                @endif
                             </div>
                         </div>
 
@@ -205,12 +215,22 @@
                                 <div class="space-y-2">
                                     <div class="flex justify-between">
                                         <span class="text-gray-600">Status:</span>
-                                        <span class="font-medium text-blue-600">Sudah Upload Bukti</span>
+                                        <span class="font-medium text-green-600">Sudah Upload Bukti</span>
                                     </div>
                                     <div class="flex justify-between">
                                         <span class="text-gray-600">Tanggal Upload:</span>
                                         <span class="font-medium text-gray-800">{{ $pesanan->updated_at->format('d M Y, H:i') }}</span>
                                     </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Total Tagihan:</span>
+                                        <span class="font-medium text-gray-800">{{ $pesanan->total_harga_format }}</span>
+                                    </div>
+                                    @if($pesanan->nominal_konfirmasi)
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">Nominal Dikonfirmasi:</span>
+                                        <span class="font-medium text-gray-800">{{ $pesanan->nominal_konfirmasi_format }}</span>
+                                    </div>
+                                    @endif
                                 </div>
                             </div>
 
@@ -238,16 +258,16 @@
                                     @case('pending')
                                         bg-yellow-100 text-yellow-800
                                         @break
-                                    @case('confirmed')
-                                        bg-blue-100 text-blue-800
-                                        @break
-                                    @case('in_progress')
+                                    @case('konfirmasi')
+                                    bg-blue-100 text-blue-800
+                                    @break
+                                    @case('diproses')
                                         bg-purple-100 text-purple-800
                                         @break
-                                    @case('completed')
+                                    @case('selesai')
                                         bg-green-100 text-green-800
                                         @break
-                                    @case('cancelled')
+                                    @case('dibatalkan')
                                         bg-red-100 text-red-800
                                         @break
                                     @default
@@ -257,16 +277,16 @@
                                     @case('pending')
                                         Menunggu Konfirmasi
                                         @break
-                                    @case('confirmed')
+                                    @case('konfirmasi')
                                         Dikonfirmasi
                                         @break
-                                    @case('in_progress')
+                                    @case('diproses')
                                         Sedang Dikerjakan
                                         @break
-                                    @case('completed')
+                                    @case('selesai')
                                         Selesai
                                         @break
-                                    @case('cancelled')
+                                    @case('dibatalkan')
                                         Dibatalkan
                                         @break
                                     @default
@@ -310,14 +330,14 @@
 
                         <!-- Action Buttons -->
                         <div class="space-y-3">
-                            @if($pesanan->status == 'confirmed' && !$pesanan->bukti_pembayaran)
+                            @if($pesanan->status == 'pending' && !$pesanan->bukti_pembayaran)
                                 <a href="{{ route('pesanan.payment', $pesanan->pesanan_id) }}"
                                    class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-center block">
                                     Upload Pembayaran
                                 </a>
                             @endif
 
-                            @if(in_array($pesanan->status, ['pending', 'confirmed']))
+                            @if(in_array($pesanan->status, ['pending']))
                                 <form action="{{ route('pesanan.cancel', $pesanan->pesanan_id) }}" method="POST"
                                       onsubmit="return confirm('Apakah Anda yakin ingin membatalkan pesanan ini?')">
                                     @csrf

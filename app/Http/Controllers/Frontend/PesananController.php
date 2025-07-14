@@ -156,7 +156,8 @@ class PesananController extends Controller
     public function uploadPayment(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'bukti_pembayaran' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+            'bukti_pembayaran' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'nominal_konfirmasi' => 'required|numeric|min:0'
         ]);
 
         if ($validator->fails()) {
@@ -179,8 +180,9 @@ class PesananController extends Controller
             // Update pesanan
             $pesanan->update([
                 'bukti_pembayaran' => $path,
+                'nominal_konfirmasi' => $request->nominal_konfirmasi,
                 'tanggal_bayar' => Carbon::now(),
-                'status' => 'dibayar'
+                'status' => 'konfirmasi'
             ]);
 
             return redirect()->route('pesanan.show', $pesanan->pesanan_id)

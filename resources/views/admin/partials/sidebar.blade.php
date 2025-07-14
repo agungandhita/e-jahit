@@ -66,15 +66,23 @@
                     <h6 class="text-blue-600 text-sm font-bold px-4">Manajemen Pemesanan</h6>
                     <ul class="mt-3 space-y-2">
                         <li>
-                            <a href="#" class="text-gray-800 text-sm flex items-center hover:bg-gray-100 rounded-md px-4 py-2 transition-all">
+                            <a href="{{ route('admin.pesanan.index') }}" class="text-gray-800 text-sm flex items-center hover:bg-gray-100 rounded-md px-4 py-2 transition-all {{ request()->routeIs('admin.pesanan.*') ? 'bg-blue-50 text-blue-600 border-r-2 border-blue-600' : '' }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-3" viewBox="0 0 24 24">
                                     <path d="M7,4V2A1,1 0 0,1 8,1H16A1,1 0 0,1 17,2V4H20A1,1 0 0,1 21,5V19A1,1 0 0,1 20,20H4A1,1 0 0,1 3,19V5A1,1 0 0,1 4,4H7M9,3V4H15V3H9M5,6V18H19V6H5Z"/>
                                 </svg>
-                                <span>Pesanan Masuk</span>
+                                <span>Kelola Pesanan</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="text-gray-800 text-sm flex items-center hover:bg-gray-100 rounded-md px-4 py-2 transition-all">
+                            <a href="{{ route('admin.pesanan.index', ['status' => 'pending']) }}" class="text-gray-800 text-sm flex items-center hover:bg-gray-100 rounded-md px-4 py-2 transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-3" viewBox="0 0 24 24">
+                                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
+                                </svg>
+                                <span>Pesanan Pending</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.pesanan.index', ['status' => 'diproses']) }}" class="text-gray-800 text-sm flex items-center hover:bg-gray-100 rounded-md px-4 py-2 transition-all">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-3" viewBox="0 0 24 24">
                                     <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
                                 </svg>
@@ -82,19 +90,11 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="text-gray-800 text-sm flex items-center hover:bg-gray-100 rounded-md px-4 py-2 transition-all">
+                            <a href="{{ route('admin.pesanan.index', ['status' => 'selesai']) }}" class="text-gray-800 text-sm flex items-center hover:bg-gray-100 rounded-md px-4 py-2 transition-all">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-3" viewBox="0 0 24 24">
                                     <path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z"/>
                                 </svg>
                                 <span>Pesanan Selesai</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="text-gray-800 text-sm flex items-center hover:bg-gray-100 rounded-md px-4 py-2 transition-all">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-3" viewBox="0 0 24 24">
-                                    <path d="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,19H5V5H19V19M17,12H7V10H17V12M15,16H7V14H15V16M17,8H7V6H17V8Z"/>
-                                </svg>
-                                <span>Riwayat Pesanan</span>
                             </a>
                         </li>
                     </ul>

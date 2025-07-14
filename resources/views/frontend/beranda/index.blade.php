@@ -34,15 +34,15 @@
 
             <!-- Right Content - Image -->
             <div class="relative">
-                <div class="bg-white rounded-2xl shadow-2xl p-8 transform rotate-3 hover:rotate-0 transition-transform duration-300">
-                    <div class="bg-gray-100 rounded-lg p-6 text-center">
-                        <div class="w-24 h-24 mx-auto mb-4 bg-green-600 rounded-full flex items-center justify-center">
-                            <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path>
-                            </svg>
+                <div class="bg-white rounded-2xl shadow-2xl p-4 transform rotate-3 hover:rotate-0 transition-transform duration-300">
+                    <div class="rounded-lg overflow-hidden relative">
+                        <img src="{{ asset('img/workshop2.jpeg') }}" alt="Workshop E-Jahit" class="w-full h-64 object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end">
+                            <div class="p-4 text-white">
+                                <h3 class="text-lg font-semibold mb-1">Kualitas Terjamin</h3>
+                                <p class="text-sm text-white/90">Jahitan rapi dan berkualitas tinggi untuk kepuasan Anda</p>
+                            </div>
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Kualitas Terjamin</h3>
-                        <p class="text-gray-600 text-sm">Jahitan rapi dan berkualitas tinggi untuk kepuasan Anda</p>
                     </div>
                 </div>
             </div>

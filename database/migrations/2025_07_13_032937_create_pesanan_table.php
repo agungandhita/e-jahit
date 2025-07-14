@@ -36,7 +36,9 @@ return new class extends Migration
             $table->decimal('harga_dasar', 12, 2);
             $table->decimal('biaya_tambahan', 12, 2)->default(0);
             $table->decimal('total_harga', 12, 2);
-            $table->enum('status', ['pending', 'dibayar', 'diproses', 'selesai', 'dibatalkan'])->default('pending');
+            $table->decimal('nominal_dibayar', 12, 2)->nullable(); // Nominal yang dibayarkan user
+            $table->decimal('nominal_konfirmasi', 12, 2)->nullable(); // Nominal yang dikonfirmasi user saat upload bukti
+            $table->enum('status', ['pending', 'konfirmasi', 'diproses', 'selesai', 'dibatalkan'])->default('pending');
             $table->string('bukti_pembayaran')->nullable();
             $table->timestamp('tanggal_bayar')->nullable();
             $table->timestamp('tanggal_selesai')->nullable();

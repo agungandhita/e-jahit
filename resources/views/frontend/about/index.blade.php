@@ -35,15 +35,13 @@
                 </div>
             </div>
             
-            <!-- Image Placeholder -->
+            <!-- Workshop Image -->
             <div class="relative">
-                <div class="bg-gray-100 rounded-lg p-6 h-80 flex items-center justify-center">
-                    <div class="text-center">
-                        <svg class="w-24 h-24 mx-auto text-green-600 mb-3" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-                        </svg>
-                        <p class="text-gray-600 font-medium text-sm">Foto Workshop Jahit</p>
-                        <p class="text-xs text-gray-500 mt-1">Tempat dimana keajaiban terjadi</p>
+                <div class="rounded-lg overflow-hidden shadow-lg">
+                    <img src="{{ asset('img/workshop.jpeg') }}" alt="Workshop Jahit E-Jahit" class="w-full h-80 object-cover">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+                        <p class="text-white font-medium text-sm">Workshop Jahit E-Jahit</p>
+                        <p class="text-white/80 text-xs mt-1">Tempat dimana keajaiban terjadi</p>
                     </div>
                 </div>
             </div>

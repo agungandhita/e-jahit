@@ -4,83 +4,31 @@
 
 @section('container')
 <!-- Hero Section -->
-<section class="bg-gradient-to-r from-green-600 to-green-700 text-white py-16">
-    <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto">
-            <!-- Breadcrumb -->
-            <nav class="mb-6">
-                <ol class="flex items-center space-x-2 text-sm">
-                    <li><a href="{{ route('home') }}" class="text-green-200 hover:text-white">Beranda</a></li>
-                    <li class="text-green-200">/</li>
-                    <li><a href="{{ route('services') }}" class="text-green-200 hover:text-white">Layanan</a></li>
-                    <li class="text-green-200">/</li>
-                    <li class="text-white font-medium">Buat Pesanan</li>
-                </ol>
-            </nav>
-            
-            <div class="text-center">
-                <h1 class="text-4xl lg:text-5xl font-bold mb-4 text-white">Buat Pesanan Baru</h1>
-                <p class="text-xl lg:text-2xl mb-8 text-green-100">Isi detail pesanan Anda dengan lengkap untuk mendapatkan layanan terbaik</p>
+<section class="bg-green-600 text-white py-20">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">Buat Pesanan Baru</h1>
+            <p class="text-xl text-green-100 max-w-2xl mx-auto">
+                Isi detail pesanan Anda dengan lengkap untuk mendapatkan hasil jahitan terbaik
+            </p>
                 
-                @if($layanan)
-                <div class="inline-flex items-center bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2">
-                    <span class="text-2xl mr-2">
-                        @switch($layanan->jenis_layanan)
-                            @case('kemeja') 👔 @break
-                            @case('celana') 👖 @break
-                            @case('dress') 👗 @break
-                            @case('gamis') 🕌 @break
-                            @case('jas') 🤵 @break
-                            @case('baju_anak') 👶 @break
-                            @default ✂️
-                        @endswitch
-                    </span>
-                    <div class="text-left">
-                        <p class="font-semibold text-white">{{ $layanan->nama_layanan }}</p>
-                        <p class="text-sm text-green-200">{{ ucwords(str_replace('_', ' ', $layanan->jenis_layanan)) }}</p>
-                    </div>
-                </div>
-                @endif
-            </div>
         </div>
     </div>
 </section>
 
 <!-- Order Form Section -->
-<section class="py-16 px-4 bg-green-50">
-    <div class="container mx-auto">
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4 max-w-6xl">
         <div class="max-w-4xl mx-auto">
-            @if($layanan)
             <!-- Service Info -->
-            <div class="bg-white rounded-xl shadow-lg p-6 mb-8 border border-green-100">
-                <div class="flex items-center mb-4">
-                    <div class="text-4xl mr-4">
-                        @switch($layanan->jenis_layanan)
-                            @case('kemeja')
-                                👔
-                                @break
-                            @case('celana')
-                                👖
-                                @break
-                            @case('dress')
-                                👗
-                                @break
-                            @case('gamis')
-                                🕌
-                                @break
-                            @case('jas')
-                                🤵
-                                @break
-                            @case('baju_anak')
-                                👶
-                                @break
-                            @default
-                                ✂️
-                        @endswitch
-                    </div>
+            @if(isset($layanan))
+            <div class="bg-white rounded-xl shadow-lg p-8 mb-8 border border-green-100">
+                <div class="flex items-start justify-between mb-4">
                     <div>
-                        <h2 class="text-2xl font-bold text-green-800">{{ $layanan->nama_layanan }}</h2>
-                        <p class="text-green-600 font-semibold">{{ ucwords(str_replace('_', ' ', $layanan->jenis_layanan)) }}</p>
+                        <h2 class="text-2xl font-bold text-green-800 mb-2">{{ $layanan->nama_layanan }}</h2>
+                        <span class="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
+                            {{ $layanan->kategori }}
+                        </span>
                     </div>
                 </div>
                 <p class="text-green-600 mb-4">{{ $layanan->deskripsi }}</p>
@@ -227,14 +175,18 @@
 <script>
 // JavaScript untuk perhitungan harga dinamis
 document.addEventListener('DOMContentLoaded', function() {
-    const basePrice = {{ $layanan->harga ?? 0 }};
+    const basePrice = {{ $layanan->harga_mulai ?? 0 }};
     const jumlahInput = document.getElementById('jumlah');
     const prioritasInputs = document.querySelectorAll('input[name="prioritas"]');
     const kainInputs = document.querySelectorAll('input[name="kain_option"]');
     
+    function formatRupiah(amount) {
+        return 'Rp ' + new Intl.NumberFormat('id-ID').format(amount);
+    }
+    
     function updatePrice() {
         const jumlah = parseInt(jumlahInput.value) || 1;
-        let total = basePrice * jumlah;
+        let baseCost = basePrice * jumlah;
         let priorityFee = 0;
         let fabricFee = 0;
         
@@ -242,16 +194,20 @@ document.addEventListener('DOMContentLoaded', function() {
         const selectedPrioritas = document.querySelector('input[name="prioritas"]:checked');
         if (selectedPrioritas) {
             if (selectedPrioritas.value === 'cepat') {
-                priorityFee = (basePrice * jumlah) * 0.5;
+                priorityFee = baseCost * 0.5;
                 document.getElementById('priority-fee').style.display = 'flex';
-                document.getElementById('priority-price').textContent = 'Rp ' + priorityFee.toLocaleString('id-ID');
+                document.getElementById('priority-price').textContent = formatRupiah(priorityFee);
             } else if (selectedPrioritas.value === 'kilat') {
-                priorityFee = (basePrice * jumlah) * 1.0;
+                priorityFee = baseCost * 1.0;
                 document.getElementById('priority-fee').style.display = 'flex';
-                document.getElementById('priority-price').textContent = 'Rp ' + priorityFee.toLocaleString('id-ID');
+                document.getElementById('priority-price').textContent = formatRupiah(priorityFee);
             } else {
                 document.getElementById('priority-fee').style.display = 'none';
+                document.getElementById('priority-price').textContent = formatRupiah(0);
             }
+        } else {
+            document.getElementById('priority-fee').style.display = 'none';
+            document.getElementById('priority-price').textContent = formatRupiah(0);
         }
         
         // Hitung biaya kain
@@ -259,16 +215,17 @@ document.addEventListener('DOMContentLoaded', function() {
         if (selectedKain && selectedKain.value === 'disediakan') {
             fabricFee = 50000 * jumlah;
             document.getElementById('fabric-fee').style.display = 'flex';
-            document.getElementById('fabric-price').textContent = 'Rp ' + fabricFee.toLocaleString('id-ID');
+            document.getElementById('fabric-price').textContent = formatRupiah(fabricFee);
         } else {
             document.getElementById('fabric-fee').style.display = 'none';
+            document.getElementById('fabric-price').textContent = formatRupiah(0);
         }
         
-        total = (basePrice * jumlah) + priorityFee + fabricFee;
+        const total = baseCost + priorityFee + fabricFee;
         
         // Update tampilan
-        document.getElementById('base-price').textContent = 'Rp ' + (basePrice * jumlah).toLocaleString('id-ID');
-        document.getElementById('total-price').textContent = 'Rp ' + total.toLocaleString('id-ID');
+        document.getElementById('base-price').textContent = formatRupiah(baseCost);
+        document.getElementById('total-price').textContent = formatRupiah(total);
     }
     
     // Event listeners
