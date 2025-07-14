@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ProdukController;
 use App\Http\Controllers\Admin\LayananController;
 use App\Http\Controllers\Admin\PesananController;
+use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Frontend\PesananController as FrontendPesananController;
 
 /*
@@ -91,5 +92,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::patch('pesanan/{pesanan}/update-harga', [PesananController::class, 'updateHarga'])->name('admin.pesanan.update-harga');
     Route::post('pesanan/bulk-action', [PesananController::class, 'bulkAction'])->name('admin.pesanan.bulk-action');
     Route::get('pesanan/export', [PesananController::class, 'export'])->name('admin.pesanan.export');
+
+    // Laporan Management Routes
+    Route::get('laporan', [LaporanController::class, 'index'])->name('admin.laporan.index');
+    Route::get('laporan/export', [LaporanController::class, 'export'])->name('admin.laporan.export');
 
 });

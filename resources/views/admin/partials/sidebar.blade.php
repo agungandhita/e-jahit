@@ -105,21 +105,14 @@
                     <h6 class="text-blue-600 text-sm font-bold px-4">Manajemen Pendapatan</h6>
                     <ul class="mt-3 space-y-2">
                         <li>
-                            <a href="#" class="text-gray-800 text-sm flex items-center hover:bg-gray-100 rounded-md px-4 py-2 transition-all">
+                            <a href="{{ route('admin.laporan.index') }}" class="text-gray-800 text-sm flex items-center hover:bg-gray-100 rounded-md px-4 py-2 transition-all {{ request()->routeIs('admin.laporan.*') ? 'bg-blue-50 text-blue-600 border-r-2 border-blue-600' : '' }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-3" viewBox="0 0 24 24">
                                     <path d="M7,15H9C9,16.08 10.37,17 12,17C13.63,17 15,16.08 15,15C15,13.9 13.96,13.5 11.76,12.97C9.64,12.44 7,11.78 7,9C7,7.21 8.47,5.69 10.5,5.18V3H13.5V5.18C15.53,5.69 17,7.21 17,9H15C15,7.92 13.63,7 12,7C10.37,7 9,7.92 9,9C9,10.1 10.04,10.5 12.24,11.03C14.36,11.56 17,12.22 17,15C17,16.79 15.53,18.31 13.5,18.82V21H10.5V18.82C8.47,18.31 7,16.79 7,15Z"/>
                                 </svg>
                                 <span>Laporan Pendapatan</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="#" class="text-gray-800 text-sm flex items-center hover:bg-gray-100 rounded-md px-4 py-2 transition-all">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-3" viewBox="0 0 24 24">
-                                    <path d="M6,2A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2H6M6,4H13V9H18V20H6V4Z"/>
-                                </svg>
-                                <span>Export Laporan</span>
-                            </a>
-                        </li>
+
                     </ul>
                 </div>
 
