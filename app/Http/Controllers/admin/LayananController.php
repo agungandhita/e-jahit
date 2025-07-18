@@ -41,13 +41,18 @@ class LayananController extends Controller
 
         // Jenis layanan options for filter
         $jenisLayananOptions = [
+            'baju_pengantin' => 'Baju Pengantin',
+            'seragam_sekolah' => 'Seragam Sekolah',
+            'baju_kerja' => 'Baju Kerja',
+            'kebaya' => 'Kebaya',
+            'gamis' => 'Gamis',
+            'jas' => 'Jas',
+            'baju_anak' => 'Baju Anak',
             'baju_pria' => 'Baju Pria',
             'baju_wanita' => 'Baju Wanita',
-            'baju_anak' => 'Baju Anak',
             'celana' => 'Celana',
             'rok' => 'Rok',
             'dress' => 'Dress',
-            'kebaya' => 'Kebaya',
             'seragam' => 'Seragam',
             'lainnya' => 'Lainnya'
         ];
@@ -70,7 +75,7 @@ class LayananController extends Controller
     {
         $validated = $request->validate([
             'nama_layanan' => 'required|string|max:255',
-            'jenis_layanan' => 'required|in:baju_pria,baju_wanita,baju_anak,celana,rok,dress,kebaya,seragam,lainnya',
+            'jenis_layanan' => 'required|in:baju_pengantin,seragam_sekolah,baju_kerja,kebaya,gamis,jas,baju_anak,baju_pria,baju_wanita,celana,rok,dress,seragam,lainnya',
             'deskripsi' => 'required|string',
             'harga_mulai' => 'required|numeric|min:0',
             'harga_sampai' => 'nullable|numeric|min:0|gt:harga_mulai',
@@ -118,7 +123,7 @@ class LayananController extends Controller
     {
         $validated = $request->validate([
             'nama_layanan' => 'required|string|max:255',
-            'jenis_layanan' => 'required|in:baju_pria,baju_wanita,baju_anak,celana,rok,dress,kebaya,seragam,lainnya',
+            'jenis_layanan' => 'required|in:baju_pengantin,seragam_sekolah,baju_kerja,kebaya,gamis,jas,baju_anak,baju_pria,baju_wanita,celana,rok,dress,seragam,lainnya',
             'deskripsi' => 'required|string',
             'harga_mulai' => 'required|numeric|min:0',
             'harga_sampai' => 'nullable|numeric|min:0|gt:harga_mulai',

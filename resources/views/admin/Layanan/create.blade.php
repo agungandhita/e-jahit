@@ -47,13 +47,18 @@
                             <select id="jenis_layanan" name="jenis_layanan" 
                                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('jenis_layanan') border-red-500 @enderror" required>
                                 <option value="">Pilih Jenis Layanan</option>
+                                <option value="baju_pengantin" {{ old('jenis_layanan') == 'baju_pengantin' ? 'selected' : '' }}>Baju Pengantin</option>
+                                <option value="seragam_sekolah" {{ old('jenis_layanan') == 'seragam_sekolah' ? 'selected' : '' }}>Seragam Sekolah</option>
+                                <option value="baju_kerja" {{ old('jenis_layanan') == 'baju_kerja' ? 'selected' : '' }}>Baju Kerja</option>
+                                <option value="kebaya" {{ old('jenis_layanan') == 'kebaya' ? 'selected' : '' }}>Kebaya</option>
+                                <option value="gamis" {{ old('jenis_layanan') == 'gamis' ? 'selected' : '' }}>Gamis</option>
+                                <option value="jas" {{ old('jenis_layanan') == 'jas' ? 'selected' : '' }}>Jas</option>
+                                <option value="baju_anak" {{ old('jenis_layanan') == 'baju_anak' ? 'selected' : '' }}>Baju Anak</option>
                                 <option value="baju_pria" {{ old('jenis_layanan') == 'baju_pria' ? 'selected' : '' }}>Baju Pria</option>
                                 <option value="baju_wanita" {{ old('jenis_layanan') == 'baju_wanita' ? 'selected' : '' }}>Baju Wanita</option>
-                                <option value="baju_anak" {{ old('jenis_layanan') == 'baju_anak' ? 'selected' : '' }}>Baju Anak</option>
                                 <option value="celana" {{ old('jenis_layanan') == 'celana' ? 'selected' : '' }}>Celana</option>
                                 <option value="rok" {{ old('jenis_layanan') == 'rok' ? 'selected' : '' }}>Rok</option>
                                 <option value="dress" {{ old('jenis_layanan') == 'dress' ? 'selected' : '' }}>Dress</option>
-                                <option value="kebaya" {{ old('jenis_layanan') == 'kebaya' ? 'selected' : '' }}>Kebaya</option>
                                 <option value="seragam" {{ old('jenis_layanan') == 'seragam' ? 'selected' : '' }}>Seragam</option>
                                 <option value="lainnya" {{ old('jenis_layanan') == 'lainnya' ? 'selected' : '' }}>Lainnya</option>
                             </select>
