@@ -79,12 +79,26 @@
 
                 <!-- Action Buttons -->
                 <div class="space-y-3">
-                    <button class="w-full bg-green-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-green-700 transition-colors">
+                    <a href="{{ route('services') }}" class="block w-full bg-green-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-green-700 transition-colors text-center">
                         Hubungi untuk Pemesanan
-                    </button>
-                    <button class="w-full border border-green-600 text-green-600 py-3 px-6 rounded-lg font-medium hover:bg-green-50 transition-colors">
+                    </a>
+                    @php
+                        $whatsappMessage = "Halo, saya tertarik dengan produk *{$produk->nama}* dari kategori {$produk->kategori_label}.\n\n";
+                        $whatsappMessage .= "Detail produk:\n";
+                        $whatsappMessage .= "- Nama: {$produk->nama}\n";
+                        $whatsappMessage .= "- Kategori: {$produk->kategori_label}\n";
+                        $whatsappMessage .= "- Harga: {$produk->harga_format}\n";
+                        if($produk->jumlah_produksi > 0) {
+                            $whatsappMessage .= "- Status: Tersedia ({$produk->jumlah_produksi} PCS)\n";
+                        } else {
+                            $whatsappMessage .= "- Status: Pre-order\n";
+                        }
+                        $whatsappMessage .= "\nSaya ingin berkonsultasi mengenai desain dan detail pemesanan produk ini. Terima kasih!";
+                        $whatsappUrl = 'https://wa.me/6281341349239?text=' . urlencode($whatsappMessage);
+                    @endphp
+                    <a href="{{ $whatsappUrl }}" target="_blank" class="block w-full border border-green-600 text-green-600 py-3 px-6 rounded-lg font-medium hover:bg-green-50 transition-colors text-center">
                         Konsultasi Desain
-                    </button>
+                    </a>
                 </div>
 
                 <!-- Product Details -->

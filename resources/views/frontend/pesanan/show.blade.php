@@ -17,7 +17,7 @@
                     <li class="text-white font-medium">Detail Pesanan</li>
                 </ol>
             </nav>
-            
+
             <div class="flex items-center justify-between">
                 <div class="flex items-center">
                     <a href="{{ route('pesanan.index') }}" class="mr-4 text-white hover:text-green-200 transition-colors">
@@ -30,7 +30,7 @@
                         <p class="text-xl lg:text-2xl text-green-100">Pesanan #{{ $pesanan->pesanan_id }} - {{ $pesanan->layanan->nama_layanan }}</p>
                     </div>
                 </div>
-                
+
                 <!-- Order Status -->
                 <div class="text-right">
                     <div class="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2">
@@ -353,7 +353,7 @@
                                 </form>
                             @endif
 
-                            <a href="https://wa.me/6281234567890?text=Halo%20E-Jahit,%20saya%20ingin%20bertanya%20tentang%20pesanan%20%23{{ $pesanan->pesanan_id }}"
+                            <a href="https://wa.me/6281341349239?text=Halo%20E-Jahit,%20saya%20ingin%20bertanya%20tentang%20pesanan%20%23{{ $pesanan->pesanan_id }}"
                                target="_blank"
                                class="w-full border-2 border-green-600 text-green-600 py-3 px-4 rounded-lg font-semibold hover:bg-green-600 hover:text-white transition-colors text-center block">
                                 Chat WhatsApp

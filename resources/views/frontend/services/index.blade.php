@@ -61,7 +61,7 @@
                                    class="w-full bg-green-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-green-700 transition-colors text-center">
                                     Pesan Sekarang
                                 </a>
-                                <a href="https://wa.me/6281234567890?text=Halo%20E-Jahit,%20saya%20ingin%20konsultasi%20tentang%20{{ urlencode($item->nama_layanan) }}"
+                                <a href="https://wa.me/6281341349239?text=Halo%20E-Jahit,%20saya%20ingin%20konsultasi%20tentang%20{{ urlencode($item->nama_layanan) }}"
                                    target="_blank"
                                    class="w-full border-2 border-green-600 text-green-600 py-3 px-4 rounded-lg font-semibold hover:bg-green-600 hover:text-white transition-colors text-center">
                                     Konsultasi via WhatsApp
@@ -142,7 +142,7 @@
             <a href="#layanan-list" class="bg-green-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-700 transition-colors text-lg">
                 Pilih Layanan
             </a>
-            <a href="https://wa.me/6281234567890?text=Halo%20E-Jahit,%20saya%20ingin%20konsultasi%20tentang%20layanan%20jahit"
+            <a href="https://wa.me/6281341349239?text=Halo%20E-Jahit,%20saya%20ingin%20konsultasi%20tentang%20layanan%20jahit"
                target="_blank"
                class="border-2 border-green-600 text-green-600 px-8 py-4 rounded-lg font-semibold hover:bg-green-600 hover:text-white transition-colors text-lg">
                 Chat WhatsApp

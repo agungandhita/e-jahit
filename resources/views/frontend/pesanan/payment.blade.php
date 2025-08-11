@@ -154,7 +154,7 @@
                                    class="block bg-green-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-green-700 transition-colors">
                                     Kembali ke Detail Pesanan
                                 </a>
-                                <a href="https://wa.me/6281234567890?text=Halo%20E-Jahit,%20saya%20sudah%20upload%20bukti%20pembayaran%20untuk%20pesanan%20%23{{ $pesanan->pesanan_id }}"
+                                <a href="https://wa.me/6281341349239?text=Halo%20E-Jahit,%20saya%20sudah%20upload%20bukti%20pembayaran%20untuk%20pesanan%20%23{{ $pesanan->pesanan_id }}"
                                    target="_blank"
                                    class="block border-2 border-green-600 text-green-600 py-3 px-6 rounded-lg font-semibold hover:bg-green-600 hover:text-white transition-colors">
                                     Konfirmasi via WhatsApp

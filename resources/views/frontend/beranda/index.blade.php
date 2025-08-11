@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="https://wa.me/6281234567890?text=Halo%20E-Jahit,%20saya%20ingin%20konsultasi%20tentang%20jasa%20jahit"
+                    <a href="https://wa.me/6281341349239?text=Halo%20E-Jahit,%20saya%20ingin%20konsultasi%20tentang%20jasa%20jahit"
                        target="_blank"
                        class="inline-flex items-center justify-center px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
                         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
@@ -202,7 +202,7 @@
         </p>
 
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="https://wa.me/6281234567890?text=Halo%20E-Jahit,%20saya%20ingin%20konsultasi%20tentang%20jasa%20jahit"
+            <a href="https://wa.me/6281341349239?text=Halo%20E-Jahit,%20saya%20ingin%20konsultasi%20tentang%20jasa%20jahit"
                target="_blank"
                class="inline-flex items-center justify-center px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
@@ -210,7 +210,7 @@
                 </svg>
                 Chat WhatsApp Sekarang
             </a>
-            <a href="tel:+6281234567890" class="inline-flex items-center justify-center px-6 py-3 bg-white text-green-600 hover:bg-gray-100 font-medium rounded transition-all duration-200">
+            <a href="tel:+62 813-4134-9239" class="inline-flex items-center justify-center px-6 py-3 bg-white text-green-600 hover:bg-gray-100 font-medium rounded transition-all duration-200">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                 </svg>
