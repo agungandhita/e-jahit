@@ -17,7 +17,6 @@ return new class extends Migration
             $table->enum('jenis_layanan', ['baju_pengantin', 'seragam_sekolah', 'baju_kerja', 'kebaya', 'gamis', 'jas', 'baju_anak', 'baju_pria', 'baju_wanita', 'celana', 'rok', 'dress', 'seragam', 'lainnya']);
             $table->text('deskripsi')->nullable();
             $table->decimal('harga_mulai', 12, 2);
-            $table->decimal('harga_sampai', 12, 2);
             $table->integer('estimasi_hari');
             $table->text('catatan')->nullable();
             $table->enum('status', ['aktif', 'nonaktif'])->default('aktif');

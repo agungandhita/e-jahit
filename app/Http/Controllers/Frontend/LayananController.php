@@ -13,8 +13,8 @@ class LayananController extends Controller
      */
     public function index()
     {
-        // Ambil semua layanan yang aktif
-        $layanan = Layanan::aktif()->get();
+        // Ambil semua layanan yang aktif dengan relasi layananUkuran
+        $layanan = Layanan::aktif()->with('layananUkuran')->get();
 
         return view('frontend.services.index', compact('layanan'));
     }

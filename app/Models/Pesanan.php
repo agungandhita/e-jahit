@@ -16,13 +16,12 @@ class Pesanan extends Model
     protected $fillable = [
         'nomor_pesanan',
         'user_id',
-        'layanan_id',
-        'jenis_layanan',
+        'layanan_ukuran_id',
         'opsi_kain',
         'detail_ukuran',
         'jumlah',
         'estimasi_waktu',
-        'prioritas', // Tambahkan field ini
+        'prioritas',
         'catatan',
         'nama_pemesan',
         'email_pemesan',
@@ -31,6 +30,7 @@ class Pesanan extends Model
         'harga_dasar',
         'biaya_tambahan',
         'total_harga',
+        'nominal_dibayar',
         'nominal_konfirmasi',
         'status',
         'bukti_pembayaran',
@@ -43,6 +43,7 @@ class Pesanan extends Model
         'harga_dasar' => 'decimal:2',
         'biaya_tambahan' => 'decimal:2',
         'total_harga' => 'decimal:2',
+        'nominal_dibayar' => 'decimal:2',
         'nominal_konfirmasi' => 'decimal:2',
         'tanggal_bayar' => 'datetime',
         'tanggal_selesai' => 'datetime'
@@ -54,10 +55,36 @@ class Pesanan extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    // Relasi dengan Layanan
+    // Relasi dengan LayananUkuran
+    public function layananUkuran()
+    {
+        return $this->belongsTo(LayananUkuran::class, 'layanan_ukuran_id', 'layanan_ukuran_id');
+    }
+
+    // Relasi dengan Layanan melalui LayananUkuran
     public function layanan()
     {
-        return $this->belongsTo(Layanan::class, 'layanan_id', 'layanan_id');
+        return $this->hasOneThrough(
+            Layanan::class,
+            LayananUkuran::class,
+            'layanan_ukuran_id', // Foreign key on layanan_ukuran table
+            'layanan_id', // Foreign key on layanan table
+            'layanan_ukuran_id', // Local key on pesanan table
+            'layanan_id' // Local key on layanan_ukuran table
+        );
+    }
+
+    // Relasi dengan Ukuran melalui LayananUkuran
+    public function ukuran()
+    {
+        return $this->hasOneThrough(
+            Ukuran::class,
+            LayananUkuran::class,
+            'layanan_ukuran_id', // Foreign key on layanan_ukuran table
+            'ukuran_id', // Foreign key on ukuran table
+            'layanan_ukuran_id', // Local key on pesanan table
+            'ukuran_id' // Local key on layanan_ukuran table
+        );
     }
 
     // Scope untuk status tertentu

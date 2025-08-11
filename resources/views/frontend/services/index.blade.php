@@ -40,12 +40,18 @@
                             <!-- Details -->
                             <div class="space-y-2 text-sm mb-6">
                                 <div class="flex justify-between">
-                                    <span class="text-gray-500">Harga:</span>
-                                    <span class="text-gray-800 font-medium">{{ $item->harga_format }}</span>
+                                    <span class="text-gray-500">Harga mulai:</span>
+                                    <span class="text-gray-800 font-medium">
+                                        @if($item->layananUkuran->count() > 0)
+                                            {{ 'Rp ' . number_format($item->layananUkuran->min('harga'), 0, ',', '.') }}
+                                        @else
+                                            Hubungi kami
+                                        @endif
+                                    </span>
                                 </div>
                                 <div class="flex justify-between">
                                     <span class="text-gray-500">Estimasi waktu:</span>
-                                    <span class="text-green-600 font-medium">{{ $item->estimasi_waktu }}</span>
+                                    <span class="text-green-600 font-medium">{{ $item->estimasi_hari }} hari</span>
                                 </div>
                             </div>
 

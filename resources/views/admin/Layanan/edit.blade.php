@@ -37,13 +37,13 @@
                 <form action="{{ route('admin.layanan.update', $layanan) }}" method="POST">
                     @csrf
                     @method('PUT')
-                    
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Nama Layanan -->
                         <div class="md:col-span-2">
                             <label for="nama_layanan" class="block text-sm font-medium text-gray-700 mb-2">Nama Layanan *</label>
-                            <input type="text" id="nama_layanan" name="nama_layanan" value="{{ old('nama_layanan', $layanan->nama_layanan) }}" 
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('nama_layanan') border-red-500 @enderror" 
+                            <input type="text" id="nama_layanan" name="nama_layanan" value="{{ old('nama_layanan', $layanan->nama_layanan) }}"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('nama_layanan') border-red-500 @enderror"
                                    placeholder="Masukkan nama layanan" required>
                             @error('nama_layanan')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -53,7 +53,7 @@
                         <!-- Jenis Layanan -->
                         <div>
                             <label for="jenis_layanan" class="block text-sm font-medium text-gray-700 mb-2">Jenis Layanan *</label>
-                            <select id="jenis_layanan" name="jenis_layanan" 
+                            <select id="jenis_layanan" name="jenis_layanan"
                                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('jenis_layanan') border-red-500 @enderror" required>
                                 <option value="">Pilih Jenis Layanan</option>
                                 <option value="baju_pengantin" {{ old('jenis_layanan', $layanan->jenis_layanan) == 'baju_pengantin' ? 'selected' : '' }}>Baju Pengantin</option>
@@ -79,7 +79,7 @@
                         <!-- Status -->
                         <div>
                             <label for="status" class="block text-sm font-medium text-gray-700 mb-2">Status *</label>
-                            <select id="status" name="status" 
+                            <select id="status" name="status"
                                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('status') border-red-500 @enderror" required>
                                 <option value="aktif" {{ old('status', $layanan->status) == 'aktif' ? 'selected' : '' }}>Aktif</option>
                                 <option value="nonaktif" {{ old('status', $layanan->status) == 'nonaktif' ? 'selected' : '' }}>Nonaktif</option>
@@ -92,31 +92,21 @@
                         <!-- Harga Mulai -->
                         <div>
                             <label for="harga_mulai" class="block text-sm font-medium text-gray-700 mb-2">Harga Mulai (Rp) *</label>
-                            <input type="number" id="harga_mulai" name="harga_mulai" value="{{ old('harga_mulai', $layanan->harga_mulai) }}" 
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('harga_mulai') border-red-500 @enderror" 
+                            <input type="number" id="harga_mulai" name="harga_mulai" value="{{ old('harga_mulai', $layanan->harga_mulai) }}"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('harga_mulai') border-red-500 @enderror"
                                    placeholder="0" min="0" step="1000" required>
                             @error('harga_mulai')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
-                        <!-- Harga Sampai -->
-                        <div>
-                            <label for="harga_sampai" class="block text-sm font-medium text-gray-700 mb-2">Harga Sampai (Rp)</label>
-                            <input type="number" id="harga_sampai" name="harga_sampai" value="{{ old('harga_sampai', $layanan->harga_sampai) }}" 
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('harga_sampai') border-red-500 @enderror" 
-                                   placeholder="0" min="0" step="1000">
-                            @error('harga_sampai')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                            <p class="mt-1 text-xs text-gray-500">Kosongkan jika harga tetap</p>
-                        </div>
+
 
                         <!-- Estimasi Hari -->
                         <div>
                             <label for="estimasi_hari" class="block text-sm font-medium text-gray-700 mb-2">Estimasi Pengerjaan (Hari) *</label>
-                            <input type="number" id="estimasi_hari" name="estimasi_hari" value="{{ old('estimasi_hari', $layanan->estimasi_hari) }}" 
-                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('estimasi_hari') border-red-500 @enderror" 
+                            <input type="number" id="estimasi_hari" name="estimasi_hari" value="{{ old('estimasi_hari', $layanan->estimasi_hari) }}"
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('estimasi_hari') border-red-500 @enderror"
                                    placeholder="1" min="1" required>
                             @error('estimasi_hari')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -126,8 +116,8 @@
                         <!-- Deskripsi -->
                         <div class="md:col-span-2">
                             <label for="deskripsi" class="block text-sm font-medium text-gray-700 mb-2">Deskripsi Layanan *</label>
-                            <textarea id="deskripsi" name="deskripsi" rows="4" 
-                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('deskripsi') border-red-500 @enderror" 
+                            <textarea id="deskripsi" name="deskripsi" rows="4"
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('deskripsi') border-red-500 @enderror"
                                       placeholder="Masukkan deskripsi layanan" required>{{ old('deskripsi', $layanan->deskripsi) }}</textarea>
                             @error('deskripsi')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -137,12 +127,132 @@
                         <!-- Catatan -->
                         <div class="md:col-span-2">
                             <label for="catatan" class="block text-sm font-medium text-gray-700 mb-2">Catatan Tambahan</label>
-                            <textarea id="catatan" name="catatan" rows="3" 
-                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('catatan') border-red-500 @enderror" 
+                            <textarea id="catatan" name="catatan" rows="3"
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent @error('catatan') border-red-500 @enderror"
                                       placeholder="Catatan tambahan (opsional)">{{ old('catatan', $layanan->catatan) }}</textarea>
                             @error('catatan')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
+                        </div>
+                    </div>
+
+                    <!-- Ukuran Section -->
+                    <div class="mt-8 pt-8 border-t border-gray-200">
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-indigo-600" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12,2A2,2 0 0,1 14,4V8A2,2 0 0,1 12,10A2,2 0 0,1 10,8V4A2,2 0 0,1 12,2M21,9V7L15,1H5A2,2 0 0,0 3,3V21A2,2 0 0,0 5,23H19A2,2 0 0,0 21,21V9Z"/>
+                                    </svg>
+                                    Ukuran Layanan
+                                </h3>
+                                <p class="text-gray-600 text-sm mt-1">Kelola ukuran yang tersedia untuk layanan ini</p>
+                            </div>
+                            <button type="button" id="addSizeBtn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
+                                </svg>
+                                Tambah Ukuran
+                            </button>
+                        </div>
+
+                        <div id="sizesContainer">
+                            @if($existingSizes && $existingSizes->count() > 0)
+                                @foreach($existingSizes as $index => $layananUkuran)
+                                    @php $ukuran = $layananUkuran->ukuran; @endphp
+                                    <div class="size-item bg-gray-50 rounded-lg p-6 mb-4 border border-gray-200">
+                                        <div class="flex items-center justify-between mb-4">
+                                            <h4 class="text-md font-semibold text-gray-700">Ukuran {{ $index + 1 }}</h4>
+                                            <button type="button" class="remove-size-btn text-red-600 hover:text-red-800 transition-colors duration-200">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                                                    <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+
+                                        <!-- Hidden fields for existing ukuran -->
+                                        <input type="hidden" name="ukuran[{{ $index }}][ukuran_id]" value="{{ $ukuran->ukuran_id }}">
+                                        <input type="hidden" name="ukuran[{{ $index }}][layanan_ukuran_id]" value="{{ $layananUkuran->layanan_ukuran_id }}">
+
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <!-- Nama Ukuran -->
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700 mb-2">Nama Ukuran *</label>
+                                                <input type="text" name="ukuran[{{ $index }}][nama_ukuran]" value="{{ $ukuran->nama_ukuran }}"
+                                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                                       placeholder="Contoh: S, M, L, XL, 48, 2-3 Tahun" required>
+                                            </div>
+
+                                            <!-- Kategori Ukuran -->
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700 mb-2">Kategori Ukuran *</label>
+                                                <select name="ukuran[{{ $index }}][kategori_ukuran]" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" required>
+                                                    <option value="">Pilih Kategori</option>
+                                                    @foreach($kategoriUkuranOptions as $key => $label)
+                                                        <option value="{{ $key }}" {{ $ukuran->kategori_ukuran == $key ? 'selected' : '' }}>{{ $label }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <!-- Harga Tambahan -->
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700 mb-2">Harga Tambahan (Rp)</label>
+                                                <input type="number" name="ukuran[{{ $index }}][harga_ukuran]" value="{{ $layananUkuran->harga }}"
+                                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                                       placeholder="0" min="0" step="1000">
+                                                <p class="text-xs text-gray-500 mt-1">Harga tambahan untuk ukuran ini (0 jika tidak ada tambahan)</p>
+                                            </div>
+
+                                            <!-- Deskripsi Ukuran -->
+                                            <div>
+                                                <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi Ukuran</label>
+                                                <textarea name="ukuran[{{ $index }}][deskripsi_ukuran]" rows="2"
+                                                          class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                                          placeholder="Deskripsi detail ukuran...">{{ $ukuran->deskripsi_ukuran }}</textarea>
+                                            </div>
+                                        </div>
+
+                                        <!-- Detail Ukuran (Opsional) -->
+                                        <div class="mt-4">
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">Detail Ukuran (Opsional)</label>
+                                            <div class="detail-ukuran-container">
+                                                @if($ukuran->detail_ukuran)
+                                                    @php $details = json_decode($ukuran->detail_ukuran, true) ?? []; @endphp
+                                                    @foreach($details as $key => $value)
+                                                        <div class="detail-ukuran-item flex gap-2 mb-2">
+                                                            <select name="ukuran[{{ $index }}][detail_ukuran_key][]" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                                                                <option value="">Pilih Detail</option>
+                                                                <option value="lingkar_dada" {{ $key == 'lingkar_dada' ? 'selected' : '' }}>Lingkar Dada</option>
+                                                                <option value="lingkar_pinggang" {{ $key == 'lingkar_pinggang' ? 'selected' : '' }}>Lingkar Pinggang</option>
+                                                                <option value="lingkar_pinggul" {{ $key == 'lingkar_pinggul' ? 'selected' : '' }}>Lingkar Pinggul</option>
+                                                                <option value="panjang_baju" {{ $key == 'panjang_baju' ? 'selected' : '' }}>Panjang Baju</option>
+                                                                <option value="panjang_lengan" {{ $key == 'panjang_lengan' ? 'selected' : '' }}>Panjang Lengan</option>
+                                                                <option value="lebar_bahu" {{ $key == 'lebar_bahu' ? 'selected' : '' }}>Lebar Bahu</option>
+                                                                <option value="panjang_celana" {{ $key == 'panjang_celana' ? 'selected' : '' }}>Panjang Celana</option>
+                                                                <option value="lingkar_paha" {{ $key == 'lingkar_paha' ? 'selected' : '' }}>Lingkar Paha</option>
+                                                            </select>
+                                                            <input type="text" name="ukuran[{{ $index }}][detail_ukuran_value][]" value="{{ $value }}"
+                                                                   class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                                                   placeholder="Contoh: 88-92 cm">
+                                                            <button type="button" class="remove-detail-btn text-red-600 hover:text-red-800 px-2">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                                                    <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                    @endforeach
+                                                @endif
+                                            </div>
+                                            <button type="button" class="add-detail-btn text-green-600 hover:text-green-800 text-sm font-medium mt-2 flex items-center gap-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                                    <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
+                                                </svg>
+                                                Tambah Detail
+                                            </button>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
 
@@ -163,24 +273,184 @@
         </div>
     </div>
 
-    @push('scripts')
     <script>
-        // Validasi harga sampai harus lebih besar dari harga mulai
-        document.getElementById('harga_sampai').addEventListener('input', function() {
-            const hargaMulai = parseInt(document.getElementById('harga_mulai').value) || 0;
-            const hargaSampai = parseInt(this.value) || 0;
-            
-            if (hargaSampai > 0 && hargaSampai <= hargaMulai) {
-                this.setCustomValidity('Harga sampai harus lebih besar dari harga mulai');
-            } else {
-                this.setCustomValidity('');
+        document.addEventListener('DOMContentLoaded', function() {
+            let sizeIndex = {{ $existingSizes ? $existingSizes->count() : 0 }};
+            const sizesContainer = document.getElementById('sizesContainer');
+            const addSizeBtn = document.getElementById('addSizeBtn');
+            const jenisLayananSelect = document.getElementById('jenis_layanan');
+
+            // Jenis pakaian options mapping
+            const jenisPakaianOptions = @json($jenisPakaianOptions);
+            const kategoriUkuranOptions = @json($kategoriUkuranOptions);
+
+            // Add new size
+            addSizeBtn.addEventListener('click', function() {
+                const sizeItem = createSizeItem(sizeIndex);
+                sizesContainer.appendChild(sizeItem);
+                sizeIndex++;
+            });
+
+            // Update jenis pakaian when jenis layanan changes
+            jenisLayananSelect.addEventListener('change', function() {
+                const selectedJenisLayanan = this.value;
+                updateJenisPakaianInSizes(selectedJenisLayanan);
+            });
+
+            function createSizeItem(index) {
+                const div = document.createElement('div');
+                div.className = 'size-item bg-gray-50 rounded-lg p-6 mb-4 border border-gray-200';
+
+                let kategoriOptions = '';
+                Object.entries(kategoriUkuranOptions).forEach(([key, label]) => {
+                    kategoriOptions += `<option value="${key}">${label}</option>`;
+                });
+
+                div.innerHTML = `
+                    <div class="flex items-center justify-between mb-4">
+                        <h4 class="text-md font-semibold text-gray-700">Ukuran ${index + 1}</h4>
+                        <button type="button" class="remove-size-btn text-red-600 hover:text-red-800 transition-colors duration-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Nama Ukuran -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Nama Ukuran *</label>
+                            <input type="text" name="ukuran[${index}][nama_ukuran]"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                   placeholder="Contoh: S, M, L, XL, 48, 2-3 Tahun" required>
+                        </div>
+
+                        <!-- Kategori Ukuran -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Kategori Ukuran *</label>
+                            <select name="ukuran[${index}][kategori_ukuran]" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent" required>
+                                <option value="">Pilih Kategori</option>
+                                ${kategoriOptions}
+                            </select>
+                        </div>
+
+                        <!-- Harga Tambahan -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Harga Tambahan (Rp)</label>
+                            <input type="number" name="ukuran[${index}][harga_ukuran]"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                   placeholder="0" min="0" step="1000">
+                            <p class="text-xs text-gray-500 mt-1">Harga tambahan untuk ukuran ini (0 jika tidak ada tambahan)</p>
+                        </div>
+
+                        <!-- Deskripsi Ukuran -->
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi Ukuran</label>
+                            <textarea name="ukuran[${index}][deskripsi_ukuran]" rows="2"
+                                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                      placeholder="Deskripsi detail ukuran..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Detail Ukuran (Opsional) -->
+                    <div class="mt-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Detail Ukuran (Opsional)</label>
+                        <div class="detail-ukuran-container">
+                            <!-- Detail items will be added here -->
+                        </div>
+                        <button type="button" class="add-detail-btn text-green-600 hover:text-green-800 text-sm font-medium mt-2 flex items-center gap-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
+                            </svg>
+                            Tambah Detail
+                        </button>
+                    </div>
+                `;
+
+                // Add event listeners
+                const removeBtn = div.querySelector('.remove-size-btn');
+                removeBtn.addEventListener('click', function() {
+                    div.remove();
+                    updateSizeNumbers();
+                });
+
+                const addDetailBtn = div.querySelector('.add-detail-btn');
+                addDetailBtn.addEventListener('click', function() {
+                    const detailContainer = div.querySelector('.detail-ukuran-container');
+                    const detailItem = createDetailItem(index);
+                    detailContainer.appendChild(detailItem);
+                });
+
+                return div;
             }
-        });
-        
-        document.getElementById('harga_mulai').addEventListener('input', function() {
-            const hargaSampai = document.getElementById('harga_sampai');
-            hargaSampai.dispatchEvent(new Event('input'));
+
+            function createDetailItem(sizeIndex) {
+                const div = document.createElement('div');
+                div.className = 'detail-ukuran-item flex gap-2 mb-2';
+
+                div.innerHTML = `
+                    <select name="ukuran[${sizeIndex}][detail_ukuran_key][]" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                        <option value="">Pilih Detail</option>
+                        <option value="lingkar_dada">Lingkar Dada</option>
+                        <option value="lingkar_pinggang">Lingkar Pinggang</option>
+                        <option value="lingkar_pinggul">Lingkar Pinggul</option>
+                        <option value="panjang_baju">Panjang Baju</option>
+                        <option value="panjang_lengan">Panjang Lengan</option>
+                        <option value="lebar_bahu">Lebar Bahu</option>
+                        <option value="panjang_celana">Panjang Celana</option>
+                        <option value="lingkar_paha">Lingkar Paha</option>
+                    </select>
+                    <input type="text" name="ukuran[${sizeIndex}][detail_ukuran_value][]"
+                           class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                           placeholder="Contoh: 88-92 cm">
+                    <button type="button" class="remove-detail-btn text-red-600 hover:text-red-800 px-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/>
+                        </svg>
+                    </button>
+                `;
+
+                const removeDetailBtn = div.querySelector('.remove-detail-btn');
+                removeDetailBtn.addEventListener('click', function() {
+                    div.remove();
+                });
+
+                return div;
+            }
+
+            function updateSizeNumbers() {
+                const sizeItems = sizesContainer.querySelectorAll('.size-item');
+                sizeItems.forEach((item, index) => {
+                    const title = item.querySelector('h4');
+                    title.textContent = `Ukuran ${index + 1}`;
+                });
+            }
+
+            function updateJenisPakaianInSizes(jenisLayanan) {
+                // This function can be used to update jenis pakaian in existing sizes if needed
+                // For now, we'll keep it simple since jenis_pakaian is set automatically
+            }
+
+            // Add event listeners for existing size items
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.remove-size-btn')) {
+                    e.target.closest('.size-item').remove();
+                    updateSizeNumbers();
+                }
+
+                if (e.target.closest('.add-detail-btn')) {
+                    const sizeItem = e.target.closest('.size-item');
+                    const sizeItemIndex = Array.from(sizesContainer.children).indexOf(sizeItem);
+                    const detailContainer = sizeItem.querySelector('.detail-ukuran-container');
+                    const detailItem = createDetailItem(sizeItemIndex);
+                    detailContainer.appendChild(detailItem);
+                }
+
+                if (e.target.closest('.remove-detail-btn')) {
+                    e.target.closest('.detail-ukuran-item').remove();
+                }
+            });
         });
     </script>
-    @endpush
+
 @endsection

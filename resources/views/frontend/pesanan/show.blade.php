@@ -145,6 +145,10 @@
                                         <span class="font-medium text-gray-800">{{ ucwords(str_replace('_', ' ', $pesanan->layanan->jenis_layanan)) }}</span>
                                     </div>
                                     <div class="flex justify-between">
+                                        <span class="text-gray-600">Ukuran:</span>
+                                        <span class="font-medium text-gray-800">{{ $pesanan->layananUkuran->ukuran->nama_ukuran ?? 'Custom' }}</span>
+                                    </div>
+                                    <div class="flex justify-between">
                                         <span class="text-gray-600">Jumlah:</span>
                                         <span class="font-medium text-gray-800">{{ $pesanan->jumlah }} pcs</span>
                                     </div>

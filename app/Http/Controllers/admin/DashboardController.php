@@ -113,7 +113,8 @@ class DashboardController extends Controller
         
         // Ambil data produk berdasarkan layanan yang paling banyak dipesan
         $layananPopuler = DB::table('pesanan')
-            ->join('layanan', 'pesanan.layanan_id', '=', 'layanan.layanan_id')
+            ->join('layanan_ukuran', 'pesanan.layanan_ukuran_id', '=', 'layanan_ukuran.layanan_ukuran_id')
+            ->join('layanan', 'layanan_ukuran.layanan_id', '=', 'layanan.layanan_id')
             ->select(
                 'layanan.nama_layanan as nama',
                 'layanan.jenis_layanan',

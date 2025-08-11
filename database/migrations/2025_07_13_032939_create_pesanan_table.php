@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id('pesanan_id');
             $table->string('nomor_pesanan')->unique();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('layanan_id')->constrained('layanan', 'layanan_id')->onDelete('cascade');
-            $table->string('jenis_layanan');
+            $table->foreignId('layanan_ukuran_id')->constrained('layanan_ukuran', 'layanan_ukuran_id')->onDelete('cascade');
 
             // Detail pesanan
             $table->enum('opsi_kain', ['bawa_sendiri', 'disediakan']);

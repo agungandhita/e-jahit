@@ -119,6 +119,84 @@
                                 </div>
                             </div>
                         @endif
+
+                        <!-- Ukuran Tersedia -->
+                        @if($sizes && $sizes->count() > 0)
+                            <div class="mt-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-indigo-600" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12,2A2,2 0 0,1 14,4V8A2,2 0 0,1 12,10A2,2 0 0,1 10,8V4A2,2 0 0,1 12,2M21,9V7L15,1H5A2,2 0 0,0 3,3V21A2,2 0 0,0 5,23H19A2,2 0 0,0 21,21V9Z"/>
+                                    </svg>
+                                    Ukuran Tersedia
+                                </h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    @foreach($sizes as $layananUkuran)
+                                        <div class="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                                            <div class="flex items-center justify-between mb-3">
+                                                <h4 class="font-semibold text-gray-800">{{ $layananUkuran->ukuran->nama_ukuran }}</h4>
+                                                <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">
+                                                    {{ $layananUkuran->ukuran->kategori_ukuran_label }}
+                                                </span>
+                                            </div>
+
+                                            @if($layananUkuran->harga > 0)
+                                                <div class="mb-2">
+                                                    <span class="text-sm text-gray-600">Harga Tambahan:</span>
+                                                    <span class="font-semibold text-green-600 ml-1">{{ $layananUkuran->harga_format }}</span>
+                                                </div>
+                                            @endif
+
+                                            @if($layananUkuran->ukuran->deskripsi_ukuran)
+                                                <div class="mb-2">
+                                                    <span class="text-sm text-gray-600">Deskripsi:</span>
+                                                    <p class="text-sm text-gray-700 mt-1">{{ $layananUkuran->ukuran->deskripsi_ukuran }}</p>
+                                                </div>
+                                            @endif
+
+                                            @if($layananUkuran->ukuran->detail_ukuran)
+                                                @php
+                                                    $detailUkuran = json_decode($layananUkuran->ukuran->detail_ukuran, true);
+                                                @endphp
+                                                @if($detailUkuran && is_array($detailUkuran))
+                                                    <div class="mt-3">
+                                                        <span class="text-sm text-gray-600 font-medium">Detail Ukuran:</span>
+                                                        <div class="mt-2 space-y-1">
+                                                            @foreach($detailUkuran as $key => $value)
+                                                                <div class="flex justify-between text-sm">
+                                                                    <span class="text-gray-600 capitalize">{{ str_replace('_', ' ', $key) }}:</span>
+                                                                    <span class="text-gray-800 font-medium">{{ $value }}</span>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @else
+                            <div class="mt-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12,2A2,2 0 0,1 14,4V8A2,2 0 0,1 12,10A2,2 0 0,1 10,8V4A2,2 0 0,1 12,2M21,9V7L15,1H5A2,2 0 0,0 3,3V21A2,2 0 0,0 5,23H19A2,2 0 0,0 21,21V9Z"/>
+                                    </svg>
+                                    Ukuran Tersedia
+                                </h3>
+                                <div class="bg-gray-50 rounded-lg p-6 text-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-gray-400 mx-auto mb-3" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12,2A2,2 0 0,1 14,4V8A2,2 0 0,1 12,10A2,2 0 0,1 10,8V4A2,2 0 0,1 12,2M21,9V7L15,1H5A2,2 0 0,0 3,3V21A2,2 0 0,0 5,23H19A2,2 0 0,0 21,21V9Z"/>
+                                    </svg>
+                                    <p class="text-gray-600">Belum ada ukuran yang ditambahkan untuk layanan ini.</p>
+                                    <a href="{{ route('admin.layanan.edit', $layanan) }}" class="inline-flex items-center gap-2 mt-3 text-indigo-600 hover:text-indigo-800 font-medium">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
+                                        </svg>
+                                        Tambah Ukuran
+                                    </a>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
@@ -126,7 +204,7 @@
                 <div class="lg:col-span-1">
                     <div class="bg-white rounded-xl shadow-md p-6 sticky top-24">
                         <h3 class="text-lg font-semibold text-gray-800 mb-4">Aksi Layanan</h3>
-                        
+
                         <div class="space-y-3">
                             <!-- Edit Button -->
                             <a href="{{ route('admin.layanan.edit', $layanan) }}" class="w-full bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-3 rounded-lg font-medium transition-colors duration-200 flex items-center justify-center gap-2">

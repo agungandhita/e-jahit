@@ -49,7 +49,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/pesanan/{id}/upload-pembayaran', [FrontendPesananController::class, 'uploadPayment'])->name('pesanan.upload-payment');
     Route::patch('/pesanan/{id}/batal', [FrontendPesananController::class, 'cancel'])->name('pesanan.cancel');
     Route::post('/pesanan/estimasi-harga', [FrontendPesananController::class, 'getPriceEstimation'])->name('pesanan.price-estimation');
-    
+
     // Profile Routes
     Route::get('/profil', [\App\Http\Controllers\Frontend\ProfileController::class, 'index'])->name('profile.index');
     Route::put('/profil', [\App\Http\Controllers\Frontend\ProfileController::class, 'update'])->name('profile.update');

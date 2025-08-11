@@ -17,7 +17,6 @@ class Layanan extends Model
         'jenis_layanan',
         'deskripsi',
         'harga_mulai',
-        'harga_sampai',
         'estimasi_hari',
         'catatan',
         'status'
@@ -25,7 +24,6 @@ class Layanan extends Model
 
     protected $casts = [
         'harga_mulai' => 'decimal:2',
-        'harga_sampai' => 'decimal:2',
         'estimasi_hari' => 'integer'
     ];
 
@@ -41,6 +39,14 @@ class Layanan extends Model
         return $query->where('jenis_layanan', $jenis);
     }
 
+    // Method untuk mendapatkan ukuran berdasarkan jenis pakaian yang sama
+    public function getUkuranByJenisPakaian()
+    {
+        return Ukuran::where('jenis_pakaian', $this->jenis_layanan)
+                     ->where('status', 'aktif')
+                     ->get();
+    }
+
 
     // Method untuk mendapatkan label jenis layanan
     public function getJenisLayananLabelAttribute()
@@ -52,9 +58,6 @@ class Layanan extends Model
     // Method untuk format harga
     public function getHargaFormatAttribute()
     {
-        if ($this->harga_sampai && $this->harga_sampai > $this->harga_mulai) {
-            return 'Rp ' . number_format($this->harga_mulai, 0, ',', '.') . ' - Rp ' . number_format($this->harga_sampai, 0, ',', '.');
-        }
         return 'Mulai Rp ' . number_format($this->harga_mulai, 0, ',', '.');
     }
 
@@ -136,5 +139,33 @@ class Layanan extends Model
         ];
 
         return $icons[$this->jenis_layanan] ?? $icons['default'];
+    }
+
+    // Relasi dengan ukuran melalui tabel pivot
+    public function ukuran()
+    {
+        return $this->belongsToMany(Ukuran::class, 'layanan_ukuran', 'layanan_id', 'ukuran_id')
+                    ->withPivot('harga', 'status', 'layanan_ukuran_id')
+                    ->withTimestamps()
+                    ->wherePivot('status', 'aktif');
+    }
+
+    // Relasi dengan layanan_ukuran
+    public function layananUkuran()
+    {
+        return $this->hasMany(LayananUkuran::class, 'layanan_id', 'layanan_id');
+    }
+
+    // Relasi dengan pesanan melalui layanan_ukuran
+    public function pesanan()
+    {
+        return $this->hasManyThrough(
+            Pesanan::class,
+            LayananUkuran::class,
+            'layanan_id', // Foreign key on layanan_ukuran table
+            'layanan_ukuran_id', // Foreign key on pesanan table
+            'layanan_id', // Local key on layanan table
+            'layanan_ukuran_id' // Local key on layanan_ukuran table
+        );
     }
 }

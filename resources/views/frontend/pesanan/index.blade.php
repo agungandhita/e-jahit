@@ -138,10 +138,14 @@
                                 </div>
 
                                 <!-- Order Details -->
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
                                     <div>
                                         <p class="text-sm text-green-500">Jenis Layanan</p>
                                         <p class="font-medium text-green-800">{{ ucwords(str_replace('_', ' ', $order->layanan->jenis_layanan)) }}</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-green-500">Ukuran</p>
+                                        <p class="font-medium text-green-800">{{ $order->layananUkuran->ukuran->nama_ukuran ?? 'Custom' }}</p>
                                     </div>
                                     <div>
                                         <p class="text-sm text-green-500">Jumlah</p>

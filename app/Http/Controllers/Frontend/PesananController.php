@@ -36,9 +36,15 @@ class PesananController extends Controller
             ->where('status', 'aktif')
             ->firstOrFail();
 
+        // Get available sizes for this service
+        $availableSizes = $layanan->layananUkuran()
+            ->with('ukuran')
+            ->where('status', 'aktif')
+            ->get();
+
         $user = Auth::user();
 
-        return view('frontend.pesanan.create', compact('layanan', 'user'));
+        return view('frontend.pesanan.create', compact('layanan', 'availableSizes', 'user'));
     }
 
     /**
@@ -47,11 +53,11 @@ class PesananController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'layanan_id' => 'required|exists:layanan,layanan_id',
-            'kain_option' => 'required|in:bawa_sendiri,disediakan', // Sesuaikan nama field
-            'ukuran' => 'required|string|max:1000', // Sesuaikan nama field
+            'layanan_ukuran_id' => 'required|exists:layanan_ukuran,layanan_ukuran_id',
+            'kain_option' => 'required|in:bawa_sendiri,disediakan',
+            'ukuran' => 'required|string|max:1000',
             'jumlah' => 'required|integer|min:1',
-            'prioritas' => 'required|in:normal,cepat,kilat', // Sesuaikan nama field
+            'prioritas' => 'required|in:normal,cepat,kilat',
             'catatan' => 'nullable|string|max:1000',
         ]);
     
@@ -61,11 +67,14 @@ class PesananController extends Controller
                 ->withInput();
         }
     
-        $layanan = Layanan::findOrFail($request->layanan_id);
+        $layananUkuran = \App\Models\LayananUkuran::with(['layanan', 'ukuran'])
+            ->findOrFail($request->layanan_ukuran_id);
+        $layanan = $layananUkuran->layanan;
         $user = Auth::user();
         
-        // Hitung harga
-        $harga_dasar = $layanan->harga_mulai * $request->jumlah;
+        // Hitung harga berdasarkan harga layanan + harga ukuran
+        $harga_per_unit = $layanan->harga_mulai + $layananUkuran->harga;
+        $harga_dasar = $harga_per_unit * $request->jumlah;
         $biaya_tambahan = 0;
         
         // Biaya tambahan untuk prioritas
@@ -101,8 +110,7 @@ class PesananController extends Controller
         $pesanan = Pesanan::create([
             'nomor_pesanan' => $nomor_pesanan,
             'user_id' => Auth::id(),
-            'layanan_id' => $request->layanan_id,
-            'jenis_layanan' => $layanan->jenis_layanan,
+            'layanan_ukuran_id' => $request->layanan_ukuran_id,
             'opsi_kain' => $request->kain_option,
             'detail_ukuran' => $detail_ukuran,
             'jumlah' => $request->jumlah,
@@ -218,20 +226,28 @@ class PesananController extends Controller
      */
     public function getPriceEstimation(Request $request)
     {
-        $layanan = Layanan::findOrFail($request->layanan_id);
+        $layananUkuran = \App\Models\LayananUkuran::with('layanan')
+            ->findOrFail($request->layanan_ukuran_id);
         $jumlah = $request->jumlah ?? 1;
-        $estimasi_waktu = $request->estimasi_waktu ?? 'normal';
+        $prioritas = $request->prioritas ?? 'normal';
         $opsi_kain = $request->opsi_kain ?? 'bawa_sendiri';
         
-        $harga_dasar = $layanan->harga_mulai * $jumlah;
+        $harga_dasar = $layananUkuran->harga * $jumlah;
         $biaya_tambahan = 0;
         
-        if ($estimasi_waktu === 'cepat') {
-            $biaya_tambahan += $harga_dasar * 0.3;
+        // Biaya tambahan untuk prioritas
+        switch ($prioritas) {
+            case 'cepat':
+                $biaya_tambahan += $harga_dasar * 0.5; // 50% tambahan
+                break;
+            case 'kilat':
+                $biaya_tambahan += $harga_dasar * 1.0; // 100% tambahan
+                break;
         }
         
+        // Biaya tambahan untuk kain disediakan
         if ($opsi_kain === 'disediakan') {
-            $biaya_tambahan += $harga_dasar * 0.2;
+            $biaya_tambahan += 50000 * $jumlah; // Rp 50.000 per item
         }
         
         $total_harga = $harga_dasar + $biaya_tambahan;

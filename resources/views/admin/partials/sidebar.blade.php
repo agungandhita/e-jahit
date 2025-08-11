@@ -73,30 +73,6 @@
                                 <span>Kelola Pesanan</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="{{ route('admin.pesanan.index', ['status' => 'pending']) }}" class="text-gray-800 text-sm flex items-center hover:bg-gray-100 rounded-md px-4 py-2 transition-all">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-3" viewBox="0 0 24 24">
-                                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
-                                </svg>
-                                <span>Pesanan Pending</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.pesanan.index', ['status' => 'diproses']) }}" class="text-gray-800 text-sm flex items-center hover:bg-gray-100 rounded-md px-4 py-2 transition-all">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-3" viewBox="0 0 24 24">
-                                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
-                                </svg>
-                                <span>Pesanan Diproses</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.pesanan.index', ['status' => 'selesai']) }}" class="text-gray-800 text-sm flex items-center hover:bg-gray-100 rounded-md px-4 py-2 transition-all">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-3" viewBox="0 0 24 24">
-                                    <path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z"/>
-                                </svg>
-                                <span>Pesanan Selesai</span>
-                            </a>
-                        </li>
                     </ul>
                 </div>
 

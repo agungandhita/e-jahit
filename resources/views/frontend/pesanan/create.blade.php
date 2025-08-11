@@ -54,7 +54,6 @@
 
                 <form action="{{ route('pesanan.store') }}" method="POST" id="orderForm">
                     @csrf
-                    <input type="hidden" name="layanan_id" value="{{ $layanan->layanan_id ?? '' }}">
 
                     <!-- Detail Pesanan -->
                     <div class="mb-8">
@@ -82,13 +81,40 @@
                             </div>
                         </div>
 
-                        <!-- Ukuran -->
+                        <!-- Pilihan Ukuran -->
                         <div class="mb-6">
-                            <label for="ukuran" class="block text-sm font-medium text-green-700 mb-2">Ukuran Detail *</label>
+                            <label class="block text-sm font-medium text-green-700 mb-2">Pilih Ukuran *</label>
+                            @if($availableSizes->count() > 0)
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    @foreach($availableSizes as $size)
+                                        <label class="flex items-center p-4 border border-green-200 rounded-lg hover:bg-green-50 cursor-pointer">
+                                            <input type="radio" name="layanan_ukuran_id" value="{{ $size->layanan_ukuran_id }}" 
+                                                   class="mr-3 text-green-600" {{ old('layanan_ukuran_id') == $size->layanan_ukuran_id ? 'checked' : '' }} required>
+                                            <div class="flex-1">
+                                                <div class="font-semibold text-green-800">{{ $size->ukuran->nama_ukuran }}</div>
+                                                <div class="text-sm text-green-600">{{ $size->ukuran->kategori_ukuran }} - {{ $size->ukuran->jenis_pakaian }}</div>
+                                                <div class="text-sm text-green-600 font-medium">Rp {{ number_format($size->harga, 0, ',', '.') }}</div>
+                                                @if($size->ukuran->deskripsi_ukuran)
+                                                    <div class="text-xs text-gray-500 mt-1">{{ $size->ukuran->deskripsi_ukuran }}</div>
+                                                @endif
+                                            </div>
+                                        </label>
+                                    @endforeach
+                                </div>
+                            @else
+                                <div class="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                                    <p class="text-yellow-800">Belum ada ukuran tersedia untuk layanan ini. Silakan hubungi admin.</p>
+                                </div>
+                            @endif
+                        </div>
+
+                        <!-- Detail Ukuran Custom -->
+                        <div class="mb-6">
+                            <label for="ukuran" class="block text-sm font-medium text-green-700 mb-2">Detail Ukuran Tambahan</label>
                             <textarea id="ukuran" name="ukuran" rows="4" required
                                       placeholder="Contoh: Lingkar dada: 90cm, Lingkar pinggang: 70cm, Panjang: 100cm, dll."
                                       class="w-full px-4 py-3 border border-green-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">{{ old('ukuran') }}</textarea>
-                            <p class="text-sm text-green-500 mt-1">Tuliskan ukuran detail sesuai jenis pakaian yang akan dijahit</p>
+                            <p class="text-sm text-green-500 mt-1">Tuliskan detail ukuran spesifik sesuai kebutuhan Anda</p>
                         </div>
 
                         <!-- Catatan Khusus -->
@@ -138,8 +164,16 @@
                         <h3 class="text-xl font-bold text-green-800 mb-4">Estimasi Total Harga</h3>
                         <div id="price-breakdown" class="space-y-2">
                             <div class="flex justify-between">
-                                <span class="text-green-700">Harga dasar:</span>
-                                <span id="base-price" class="text-green-800 font-medium">{{ $layanan->harga_format ?? 'Rp 0' }}</span>
+                                <span class="text-green-700">Harga dasar layanan:</span>
+                                <span id="service-price" class="text-green-800 font-medium">Rp {{ number_format($layanan->harga_mulai ?? 0, 0, ',', '.') }}</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-green-700">Harga ukuran:</span>
+                                <span id="size-price" class="text-green-800 font-medium">Rp 0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-green-700">Subtotal (x<span id="quantity-display">1</span>):</span>
+                                <span id="base-price" class="text-green-800 font-medium">Rp 0</span>
                             </div>
                             <div class="flex justify-between" id="priority-fee" style="display: none;">
                                 <span class="text-green-700">Biaya prioritas:</span>
@@ -152,9 +186,14 @@
                             <hr class="my-2 border-green-200">
                             <div class="flex justify-between font-bold text-lg">
                                 <span class="text-green-800">Total:</span>
-                                <span id="total-price" class="text-green-600">{{ $layanan->harga_format ?? 'Rp 0' }}</span>
+                                <span id="total-price" class="text-green-600">Rp 0</span>
                             </div>
                         </div>
+                        @if($availableSizes->count() == 0)
+                            <div class="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded">
+                                <p class="text-yellow-800 text-sm">Silakan pilih ukuran terlebih dahulu untuk melihat estimasi harga.</p>
+                            </div>
+                        @endif
                     </div>
 
                     <!-- Submit Button -->
@@ -175,20 +214,47 @@
 <script>
 // JavaScript untuk perhitungan harga dinamis
 document.addEventListener('DOMContentLoaded', function() {
-    const basePrice = {{ $layanan->harga_mulai ?? 0 }};
     const jumlahInput = document.getElementById('jumlah');
     const prioritasInputs = document.querySelectorAll('input[name="prioritas"]');
     const kainInputs = document.querySelectorAll('input[name="kain_option"]');
+    const ukuranInputs = document.querySelectorAll('input[name="layanan_ukuran_id"]');
     
     function formatRupiah(amount) {
         return 'Rp ' + new Intl.NumberFormat('id-ID').format(amount);
     }
     
+    function getSelectedSizePrice() {
+        const selectedSize = document.querySelector('input[name="layanan_ukuran_id"]:checked');
+        if (selectedSize) {
+            // Get price from the selected size element
+            const priceText = selectedSize.closest('label').querySelector('.font-medium').textContent;
+            const price = parseInt(priceText.replace(/[^0-9]/g, ''));
+            return price || 0;
+        }
+        return 0;
+    }
+    
+    function getServicePrice() {
+        // Get service base price from the displayed value
+        const servicePriceText = document.getElementById('service-price').textContent;
+        const price = parseInt(servicePriceText.replace(/[^0-9]/g, ''));
+        return price || 0;
+    }
+    
     function updatePrice() {
         const jumlah = parseInt(jumlahInput.value) || 1;
-        let baseCost = basePrice * jumlah;
+        const servicePrice = getServicePrice();
+        const sizePrice = getSelectedSizePrice();
+        const unitPrice = servicePrice + sizePrice; // Harga per unit (layanan + ukuran)
+        let baseCost = unitPrice * jumlah; // Total harga dasar
         let priorityFee = 0;
         let fabricFee = 0;
+        
+        // Update quantity display
+        document.getElementById('quantity-display').textContent = jumlah;
+        
+        // Update size price display
+        document.getElementById('size-price').textContent = formatRupiah(sizePrice);
         
         // Hitung biaya prioritas
         const selectedPrioritas = document.querySelector('input[name="prioritas"]:checked');
@@ -232,6 +298,13 @@ document.addEventListener('DOMContentLoaded', function() {
     jumlahInput.addEventListener('input', updatePrice);
     prioritasInputs.forEach(input => input.addEventListener('change', updatePrice));
     kainInputs.forEach(input => input.addEventListener('change', updatePrice));
+    ukuranInputs.forEach(input => input.addEventListener('change', updatePrice));
+    
+    // Select first available size if exists
+    const firstSize = document.querySelector('input[name="layanan_ukuran_id"]');
+    if (firstSize) {
+        firstSize.checked = true;
+    }
     
     // Initial calculation
     updatePrice();
